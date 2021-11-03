@@ -1,12 +1,8 @@
-const { app, BrowserWindow } = require("electron")
+const { app } = require("electron")
 const path = require('path')
+const electronReload = require('electron-reload')
+const { createWindow } = require("./src/backend/window")
 
-app.on('ready', () => {
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-  })
+electronReload(path.join(__dirname, "public"), {})
 
-  mainWindow.loadFile(path.join(__dirname, "public/index.html"))
-  mainWindow.webContents.openDevTools()
-})
+app.on('ready', createWindow)
