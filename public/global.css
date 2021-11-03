@@ -6,4 +6,9 @@
 }
 
 :root {
+	--primary-500: #66fcf1;
+	--primary-700: #45a29e;
+	--grey-100: #c5c6c7;
+	--grey-500: #1f2833;
+	--grey-900: #0b0c10;
 }

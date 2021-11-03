@@ -1,21 +1,24 @@
 <script>
-  
+  import Button from './Button.svelte'
 </script>
 
 <footer>
-  <button class="">Launch</button>
+  <Button on:click={() => {
+    window.launcher.launchMts({hello:"world"})
+  }}>Launch</Button>
 </footer>
 
 <style>
   footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 4em;
+    width: 100vw;
     display: grid;
-    place-items: center flex-end;
-    background-color: darkslategrey;
+    place-items: center;
+    background-color: var(--grey-500);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     padding: 0 2em;
-  }
-
-  button {
-    background-color: var(--color-green);
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   }
 </style>

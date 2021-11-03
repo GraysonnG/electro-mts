@@ -11,6 +11,7 @@ const createWindow = () => {
   })
 
   mainWindow.loadFile(path.join(__dirname, "..", "..", "public", "index.html"))
+  mainWindow.removeMenu()
   mainWindow.webContents.openDevTools()
 
   require("./ipc/main")
