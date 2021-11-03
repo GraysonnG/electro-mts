@@ -1,4 +1,4 @@
-const { BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
 const createWindow = () => {
@@ -10,7 +10,7 @@ const createWindow = () => {
     }
   })
 
-  mainWindow.loadFile(path.join(__dirname, "../..", "public/index.html"))
+  mainWindow.loadFile(path.join(__dirname, "..", "..", "public", "index.html"))
   mainWindow.webContents.openDevTools()
 
   require("./ipc/main")
