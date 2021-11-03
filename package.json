@@ -2,14 +2,18 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "private": true,
+  "main": "main.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear"
+    "start": "electron .",
+    "dist": "npm run build && electron-builder"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "electron": "^15.3.0",
+    "electron-builder": "^22.13.1",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
