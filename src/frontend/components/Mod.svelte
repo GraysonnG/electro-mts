@@ -7,14 +7,13 @@ import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher()
   const handleClick = (e) => {
-    console.log(e)
-
-    console.log(data.id)
-    
-    dispatch('click', {
-      modId: data.id,
-      event: e
-    })
+    const source = e.path[0]
+    if (source.tagName !== "INPUT") {
+      dispatch('click', {
+        modId: data.id,
+        event: e
+      })
+    }
   }
 
   $: selected = data.checked
@@ -22,7 +21,7 @@ import { createEventDispatcher } from "svelte";
 
 <div class:selected on:click={handleClick}>
   <border></border>
-  <Checkbox bind:checked={data.checked} id={data.id} />
+  <Checkbox bind:checked={selected} id={data.id} />
   <span>{data.name}</span>
   <span class="small">(0.0.0)</span>
   <span class="small grow">by: Author</span>
