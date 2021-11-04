@@ -14,7 +14,11 @@ const register = (mainWindow) => {
   ipcMain.on('open-dialog', (e, data) => {
     const paths = openDialog(data)
     try {
-      mainWindow.webContents.send('update-state', getStateFromPath(paths[0]))
+      const payload = getStateFromPath(paths[0])
+
+      // validate payload
+
+      mainWindow.webContents.send('update-state', payload)
     } catch (e) {
       mainWindow.webContents.send('be-error', e)
     }

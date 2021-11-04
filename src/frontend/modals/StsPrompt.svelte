@@ -1,6 +1,7 @@
 <script>
   import Button from "../components/Button.svelte"
   import { state } from '../state/store'
+  import { fade } from 'svelte/transition'
 
   const handleClick = () => {
     window.launcher.openDialog({
@@ -14,7 +15,7 @@
 </script>
 
 {#if show}
-  <div class="bg">
+  <div transition:fade={{duration: 200}} class="bg">
     <div class="modal">
       <h3>Could not find your Slay The Spire installation...</h3>
       <p><Button on:click={handleClick}>Browse...</Button> Select Slay the Spire folder.</p>
@@ -40,6 +41,7 @@
     z-index: 10000;
     inset: 0;
     background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(3px);
     place-items: center;
   }
 
