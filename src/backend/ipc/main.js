@@ -2,6 +2,7 @@ const { ipcMain } = require('electron')
 const { openDialog } = require('../dialog')
 const { launch } = require('../mts/launcher')
 const { getStateFromPath } = require('../mts/state')
+const { getPathDefaults } = require('../mts/path')
 
 const register = (mainWindow) => {
   ipcMain.on('launch-mts', (_e, data) => {
@@ -22,6 +23,15 @@ const register = (mainWindow) => {
     } catch (e) {
       mainWindow.webContents.send('be-error', e)
     }
+  })
+
+  ipcMain.on('init', (_e, data) => {
+    const stsPath = getPathDefaults()
+    const pathState = getStateFromPath(stsPath)
+
+    mainWindow.webContents.send('update-state', {
+      ...pathState
+    })
   })
 }
 

@@ -6,6 +6,9 @@ contextBridge.exposeInMainWorld('launcher', {
   },
   openDialog: (data) => {
     ipcRenderer.send('open-dialog', data)
+  },
+  init: () => {
+    ipcRenderer.send('init', {})
   }
 })
 

@@ -1,10 +1,14 @@
 <script>
+import { onMount } from "svelte";
+
 	import Footer from "./components/Footer.svelte"
 	import List from "./components/List.svelte"
 	import TextInput from "./components/TextInput.svelte"
-	import StsPrompt from "./modals/StsPrompt.svelte"
 	import { state } from "./state/store"
 
+	onMount(() => {
+		window.launcher.init()
+	})
 </script>
 
 <main>
