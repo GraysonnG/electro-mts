@@ -1,14 +1,17 @@
 <script>
 	import Footer from "./components/Footer.svelte"
 	import List from "./components/List.svelte"
+	import StsPrompt from "./modals/StsPrompt.svelte"
 </script>
 
 <main>
 	<div>
 		<List />
 	</div>
-	<Footer></Footer>
+	<Footer />
 </main>
+
+<StsPrompt />
 
 <style>
 	main {

@@ -1,7 +1,7 @@
 const child = require('child_process')
 
 const launch = (stsPath, mtsPath) => {
-  const sts = stsPath || "D:\\Steam\\steamapps\\common\\SlayTheSpire"
+  const sts = stsPath
   const mts = mtsPath || "D:\\Steam\\steamapps\\workshop\\content\\646570\\1605060445\\ModTheSpire.jar"
 
   try {

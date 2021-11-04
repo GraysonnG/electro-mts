@@ -11,7 +11,7 @@
 <style>
   element {
     height: 100%;
-    cursor: pointer;
+    cursor: pointer !important;
   }
 
   input[type="checkbox"] {

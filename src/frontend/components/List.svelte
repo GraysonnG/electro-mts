@@ -27,5 +27,6 @@
     display: grid;
     gap: 0.5em;
     padding: 0.5em;
+    padding-bottom: calc(4em + 0.5em);
   }
 </style>

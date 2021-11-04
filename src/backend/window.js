@@ -14,7 +14,8 @@ const createWindow = () => {
   mainWindow.removeMenu()
   mainWindow.webContents.openDevTools()
 
-  require("./ipc/main")
+  require("./ipc/main").register(mainWindow)
+  // load from disk the config and update the front-end store
 }
 
 module.exports = {
