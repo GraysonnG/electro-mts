@@ -6,9 +6,6 @@ const getPathDefaults = () => {
   switch (process.platform) {
     case 'linux':
       const homedir = os.homedir()
-
-      console.log(homedir)
-
       p = path.join(os.homedir(), "/.steam/steam/steamapps/common/SlayTheSpire")
     case 'darwin':
 

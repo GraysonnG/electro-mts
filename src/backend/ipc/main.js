@@ -3,6 +3,7 @@ const { openDialog } = require('../dialog')
 const { launch } = require('../mts/launcher')
 const { getStateFromPath } = require('../mts/state')
 const { getPathDefaults } = require('../mts/path')
+const { getModInfos } = require('../mts/modinfos')
 
 const register = (mainWindow) => {
   ipcMain.on('launch-mts', (_e, data) => {
@@ -25,12 +26,16 @@ const register = (mainWindow) => {
     }
   })
 
-  ipcMain.on('init', (_e, data) => {
+  ipcMain.on('init', async (_e, data) => {
     const stsPath = getPathDefaults()
     const pathState = getStateFromPath(stsPath)
+    const modList = await getModInfos(pathState)
+
+    console.log(modList.length)
 
     mainWindow.webContents.send('update-state', {
-      ...pathState
+      ...pathState,
+      modList
     })
   })
 }

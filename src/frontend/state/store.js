@@ -1,31 +1,7 @@
 import { writable } from "svelte/store";
 
-//region temp
-
-const makeModInfo = () => {
-  return {
-    id: `${tempidcounter++}`,
-    name: `ModName ${tempidcounter}`,
-    checked: false,
-    deps: []
-  }
-}
-
-let tempidcounter = 0
-let list = [];
-
-for (let i = 0; i < 30; i++) {
-  list.push(makeModInfo())
-}
-
-list[0].deps.push("5","9","7")
-list[8].name = "Custom Mod Name"
-
-//endregion
-
-
 export const state = writable({
-  modList: list,
+  modList: [],
   stsDir: "",
   mtsDir: "",
   filter: "",
@@ -40,6 +16,20 @@ window.ipcRenderer.on('update-state', (payload) => {
   })
 })
 
+const enableDependencies = (mod) => {
+  state.update(s => {
+    mod.deps.forEach(depName => {
+      s.modList.forEach(smod => {
+        if (smod.id === depName) {
+          smod.checked = true
+        }
+      })
+    })
+
+    return s
+  })
+}
+
 export const toggleMod = (modId) => {
   state.update(s => {
     const list = [...s.modList];
@@ -47,6 +37,10 @@ export const toggleMod = (modId) => {
       .filter(m => m.id === modId)[0]
 
     mod.checked = !mod.checked
+
+    if (mod.checked) {
+      enableDependencies(mod)
+    }
 
     return {
       ...s,
