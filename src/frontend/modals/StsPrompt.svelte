@@ -9,17 +9,6 @@
     })
   }
 
-  window.ipcRenderer.on('open-dialog-res', (data) => {
-    let paths = data.paths
-    console.log(paths)
-    state.update(cur => {
-      return {
-        ...cur,
-        stsDir: paths[0]
-      }
-    })
-  })
-
   $: show = !$state.stsDir
 
 </script>

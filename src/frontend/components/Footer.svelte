@@ -10,7 +10,7 @@
   
   <div>
     <span>Slay the Spire (12-22-2020): {$state.stsDir}</span>
-    <span>ModTheSpire (3.23.2): D:/Steam/steamapps/workshop/content/646570/1605060445/ModTheSpire.jar</span>
+    <span>ModTheSpire (3.23.2): {$state.mtsDir}</span>
   </div>
 </footer>
 
