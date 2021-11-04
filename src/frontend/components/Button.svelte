@@ -1,12 +1,15 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  
+  export let small = false;
+  
   const dispatch = createEventDispatcher()
   const onClick = (event) => {
     dispatch('click',event)
   }
 </script>
 
-<button on:click={onClick}>
+<button class:small on:click={onClick}>
   <slot />
 </button>
 
@@ -21,6 +24,11 @@
     color: white;
     overflow: hidden;
     z-index: 0;
+  }
+
+  button.small {
+    font-size: 0.7em;
+    padding: 0.5em 1em;
   }
 
   button::after {

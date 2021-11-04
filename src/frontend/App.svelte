@@ -1,17 +1,21 @@
 <script>
 	import Footer from "./components/Footer.svelte"
 	import List from "./components/List.svelte"
+	import TextInput from "./components/TextInput.svelte"
 	import StsPrompt from "./modals/StsPrompt.svelte"
+	import { state } from "./state/store"
+
 </script>
 
 <main>
 	<div>
+		<TextInput bind:value={$state.filter} placeholder="Search Installed Mods..." />
 		<List />
 	</div>
 	<Footer />
 </main>
 
-<StsPrompt />
+<!-- <StsPrompt /> -->
 
 <style>
 	main {
@@ -22,6 +26,10 @@
 	}
 
 	div {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+		padding: 1em;
 		background-color:var(--grey-900);
 	}
 </style>

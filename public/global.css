@@ -5,6 +5,22 @@
 	margin: 0;
 }
 
+::-webkit-scrollbar {
+	width: 0.5em;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--grey-500);
+}
+
+::-webkit-scrollbar-thumb {
+	width: 0.5em;
+	background: var(--primary-700);
+	border-radius: 1em;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
 :root {
 	--primary-500: #66fcf1;
 	--primary-700: #45a29e;

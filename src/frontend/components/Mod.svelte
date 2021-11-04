@@ -1,27 +1,32 @@
 <script>
+import { createEventDispatcher } from "svelte";
+
   import Checkbox from "./Checkbox.svelte";
 
   export let data;
-  export let selected = false;
 
+  const dispatch = createEventDispatcher()
   const handleClick = (e) => {
-    let shouldToggle = true
+    console.log(e)
 
-    e.path.forEach(element => {
-      if (element.tagName && element.tagName.toLowerCase() === "element") shouldToggle = false
-    });
-
-    if (shouldToggle) {
-      selected = !selected
-    }
+    console.log(data.id)
+    
+    dispatch('click', {
+      modId: data.id,
+      event: e
+    })
   }
+
+  $: selected = data.checked
 </script>
 
 <div class:selected on:click={handleClick}>
-  <Checkbox bind:checked={selected} id={data.id} />
-  <span>ModName</span>
+  <border></border>
+  <Checkbox bind:checked={data.checked} id={data.id} />
+  <span>{data.name}</span>
   <span class="small">(0.0.0)</span>
   <span class="small grow">by: Author</span>
+  
 </div>
 
 <style>
@@ -35,6 +40,7 @@
     gap: 1em;
     align-items: center;
     cursor: pointer;
+    transition: border 500ms;
   }
 
   div:hover {

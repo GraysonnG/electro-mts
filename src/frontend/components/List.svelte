@@ -1,32 +1,76 @@
 <script>
   import Mod from './Mod.svelte'
+  import Button from './Button.svelte'
+  import { state, toggleMod, unselectAllMods } from '../state/store'
+  import { crossfadePos } from '../animations/slide'
+  import { flip } from "svelte/animate"
+  import { filterMods } from '../helpers/filter'
+  import { onMount } from 'svelte';
 
-  const modInfo = [
-    {id:1},
-    {id:2},
-    {id:3},
-    {id:4},
-    {id:5},
-    {id:6},
-    {id:7},
-    {id:8},
-    {id:9},
-    {id:10},
-  ]
+  const [ send, recieve ] = crossfadePos
+
+  const handleClick = (e) => {
+    toggleMod(e.detail.modId)
+  }
+
+  const removeAll = () => {
+    unselectAllMods()
+  }
+
+  let masterList = filterMods($state.modList, $state.filter)
+  $: activeList = masterList.filter(m => m.checked)
+  $: nonactiveList = masterList.filter(m => !m.checked)
+
+  onMount(() => {
+    state.subscribe(state => {
+      masterList = filterMods(state.modList, state.filter)
+    })
+  })
 </script>
 
 <div>
-  {#each modInfo as mod}
-     <Mod data={mod} />
+  {#if activeList.length > 0}
+    <span>
+      Enabled ({activeList.length}) 
+      <Button on:click={removeAll} small>Remove All</Button>
+    </span>
+    {#each activeList as mod (mod.id)}
+      <li
+        in:recieve={{key: mod.id, duration: 250}}
+        out:send={{key: mod.id, duration: 250}}
+        animate:flip={{duration: 250}}>
+        <Mod on:click={handleClick} data={mod} />
+      </li>
+    {/each}
+  {/if}
+  <span>Available:</span>
+  {#each nonactiveList as mod (mod.id)}
+    <li
+      in:recieve={{key: mod.id, duration: 250}}
+      out:send={{key: mod.id, duration: 250}}
+      animate:flip={{duration: 250}}>
+      <Mod on:click={handleClick} data={mod} />
+    </li>
   {/each}
+  
 </div>
 
 <style>
+  span {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+
+  li {
+    display: block;
+  }
+
   div {
+    color: var(--grey-100);
     box-sizing: border-box;
     display: grid;
     gap: 0.5em;
-    padding: 0.5em;
     padding-bottom: calc(4em + 0.5em);
   }
 </style>
