@@ -15,7 +15,6 @@ contextBridge.exposeInMainWorld('launcher', {
 contextBridge.exposeInMainWorld('ipcRenderer', {
   on: (channel, callback) => {
     ipcRenderer.on(channel, (event, ...args) => {
-      console.log(args)
       callback(...args)
     })
   },

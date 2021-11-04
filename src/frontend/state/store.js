@@ -5,6 +5,7 @@ export const state = writable({
   stsDir: "",
   mtsDir: "",
   filter: "",
+  error: undefined,
 })
 
 window.ipcRenderer.on('update-state', (payload) => {
@@ -17,17 +18,19 @@ window.ipcRenderer.on('update-state', (payload) => {
 })
 
 const enableDependencies = (mod) => {
-  state.update(s => {
-    mod.deps.forEach(depName => {
-      s.modList.forEach(smod => {
-        if (smod.id === depName) {
-          smod.checked = true
-        }
+  if (mod.deps) {
+    state.update(s => {
+      mod.deps.forEach(depName => {
+        s.modList.forEach(smod => {
+          if (smod.id === depName) {
+            smod.checked = true
+          }
+        })
       })
+  
+      return s
     })
-
-    return s
-  })
+  }
 }
 
 export const toggleMod = (modId) => {

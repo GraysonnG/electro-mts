@@ -3,6 +3,7 @@
   import { state } from '../state/store'
   import { fade, fly } from 'svelte/transition'
   import EvaIcon from '../components/EvaIcon.svelte'
+import { onMount } from "svelte";
 
   const handleClick = () => {
     window.launcher.openDialog({
@@ -10,8 +11,17 @@
       properties: ['openDirectory']
     })
   }
+  
+  var show = $state.error === "invalid-stspath"
+  console.log($state)
 
-  $: show = !$state.stsDir
+  onMount(() => {
+    state.subscribe(s => {
+      console.log(s)
+      show = s.error === "invalid-stspath"
+    })
+  })
+
 
 </script>
 

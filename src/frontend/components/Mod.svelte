@@ -16,6 +16,8 @@ import { createEventDispatcher } from "svelte";
     }
   }
 
+  let authorString = data.author.length > 50 ? `${data.author.substring(0, 50)}...` : data.author
+
   $: selected = data.checked
 </script>
 
@@ -23,8 +25,8 @@ import { createEventDispatcher } from "svelte";
   <border></border>
   <Checkbox bind:checked={selected} id={data.id} />
   <span>{data.name}</span>
-  <span class="small">(0.0.0)</span>
-  <span class="small grow">by: Author</span>
+  <span class="small">({data.version})</span>
+  <span class="small grow">by: {authorString}</span>
   
 </div>
 

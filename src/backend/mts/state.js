@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 
 module.exports = {
   getStateFromPath: (stsPath) => {
@@ -12,6 +13,8 @@ module.exports = {
       "1605060445",
       "ModTheSpire.jar"
     )
+
+    if (!fs.existsSync(mtsPath)) throw "invalid-stspath"
 
     return {
       stsDir: stsPath,

@@ -20,6 +20,7 @@ const setFileOwnership = async (filePath) => {
 const getModInfoFromMTSJSON = (mtsJSON) => {
   try {
     const data = JSON.parse(mtsJSON)
+    if (data.name === "ModTheSpire") throw "Ignoring MTS"
     return {
       id: data.modid,
       name: data.name,
@@ -30,7 +31,6 @@ const getModInfoFromMTSJSON = (mtsJSON) => {
       deps: data.dependencies
     }
   } catch (e) {
-    console.log(mtsJSON)
     console.error(e)
     return {}
   }
