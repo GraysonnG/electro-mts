@@ -29,5 +29,7 @@
     --grey-500: #1f2833;
     --grey-900: #0b0c10;
     --red-500: #ff5555;
+    --yellow-500: #cccc55;
+    --pink-500: #cc55cc;
   }
 </style>

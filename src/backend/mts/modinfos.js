@@ -33,6 +33,8 @@ const getModInfoFromMTSJSON = (mtsJSON, dir, fileName) => {
       deps: data.dependencies
     }
   } catch (e) {
+    console.error(`\n\n${dir}`)
+    console.error(mtsJSON)
     console.error(e)
     return {}
   }
@@ -68,7 +70,7 @@ const getInfosFromWorkshopFolderMods = async (mtsDir) => {
     setFileOwnership(modJarPath)
     const zip = new StreamZip.async({ file: modJarPath })
     const mtsJSON = await zip.entryData('ModTheSpire.json')
-    return getModInfoFromMTSJSON(mtsJSON.toString(), modJarPath, mod)
+    return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), modJarPath, mod)
   })).catch(e => {
     console.error(e)
   })

@@ -18,27 +18,34 @@ const getConfigPath = () => {
       break;
   }
 
-  const configDir = path.join(baseDir, "ModTheSpire")
+  return baseDir
+}
 
-  if (fs.existsSync(configDir)) {
-    return path.join(configDir, "mod_lists.json")
+const getMtsConfigPath = () => {
+  const configPath = getConfigPath()
+  const mtsConfigPath = path.join(configPath, "ModTheSpire")
+
+  if (fs.existsSync(mtsConfigPath)) {
+    return path.join(mtsConfigPath, "mod_lists.json")
   }
+  
+  throw new Error(`Could not find MTS Config at: ${path.join(mtsConfigPath, "mod_lists.json")}`)
 }
 
 const getProfiles = async () => {
-  const configPath = getConfigPath()
+  const configPath = getMtsConfigPath()
   const profiles = fs.readFileSync(configPath).toString()
   return JSON.parse(profiles)
 }
 
 const saveProfiles = (profiles) => {
-  const configPath = getConfigPath()
-  const entries = Object.entries(profiles)
+  const configPath = getMtsConfigPath()
   const output = JSON.stringify(profiles, null, "  ")
   fs.writeFileSync(configPath, output)
 }
 
 module.exports = {
+  getConfigPath,
   getProfiles,
   saveProfiles
 }
