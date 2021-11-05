@@ -7,7 +7,6 @@
 	import { state } from "./state/store"
 	import GlobalCSS from "./styles/GlobalCSS.svelte";
 	import GenericError from "./modals/GenericError.svelte";
-	import Button from "./components/Button.svelte";
 	import EvaIcon from "./components/EvaIcon.svelte";
 
 	window.launcher.init()
