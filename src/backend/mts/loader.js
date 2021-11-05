@@ -16,6 +16,7 @@ const loadModInfos = async (stsPath, window) => {
       error: undefined
     })
   } catch (e) {
+    console.error(e)
     window.webContents.send(UPDATE_STATE, {
       error: e
     })

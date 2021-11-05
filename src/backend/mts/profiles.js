@@ -6,7 +6,8 @@ const getConfigPath = () => {
   let baseDir;
   switch (process.platform) {
     case LINUX:
-      // TODO: Make this work on linux
+      let home = process.env.HOME
+      baseDir = path.join(home, ".config")
       break;
     case WINDOWS:
       let appdata = process.env.LOCALAPPDATA
@@ -21,7 +22,6 @@ const getConfigPath = () => {
 
   if (fs.existsSync(configDir)) {
     return path.join(configDir, "mod_lists.json")
-    
   }
 }
 
