@@ -13,7 +13,6 @@
   }
   
   var show = $state.error === "invalid-stspath"
-  console.log($state)
 
   onMount(() => {
     state.subscribe(s => {

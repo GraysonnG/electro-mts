@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   
   export let small = false;
+  export let square = false;
   
   const dispatch = createEventDispatcher()
   const onClick = (event) => {
@@ -9,7 +10,7 @@
   }
 </script>
 
-<button class:small on:click={onClick}>
+<button class:small class:square on:click={onClick}>
   <slot />
 </button>
 
@@ -29,6 +30,14 @@
   button.small {
     font-size: 0.7em;
     padding: 0.5em 1em;
+  }
+
+  button.square {
+    display: flex;
+    padding: 0.5em 0.5em;
+    aspect-ratio: 1;
+    justify-content: center;
+    align-items: center;
   }
 
   button::after {

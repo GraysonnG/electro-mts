@@ -1,25 +1,34 @@
 <script>
-  import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition"
-  import { state, closeDetails } from "../state/store"
+  import { state } from "../state/store"
   import { clickOutside } from "../helpers/clickoutside"
+  import TextInput from "../components/TextInput.svelte";
+  import Button from "../components/Button.svelte";
 
-  let show = false
-  let mod;
-
-  onMount(() => {
-    state.subscribe(s => {
-      show = !!s.detailId
-      mod = s.modList.filter(m => (
-        m.id === s.detailId
-      ))[0]
-    })
-  })
+  export let show = true
+  let text = ""
 
   const handleClickOutside = () => {
-    closeDetails()
+    show = false
+    text = ""
   }
 
+  const handleDone = () => {
+    if (text) {
+      state.update(s => {
+        const profiles = {...s.profiles}
+        profiles.lists[text] = []
+        profiles.defaultList = text
+        return {
+          ...s,
+          profiles
+        }
+      })
+
+      show = false
+      text = ""
+    }
+  }
 </script>
 
 {#if show}
@@ -33,13 +42,9 @@
       class="modal"
       in:fly={{ y: -200, duration: 200 }}
       out:fly={{ y: 200, duration: 200 }}>
-
-      <h3>{mod.name} <span>({mod.version})</span></h3>
-      <p>Mod Id: <b>{mod.id}</b></p>
-      <p>Author(s): <b>{mod.author}</b></p>
-      <p>File Name: <b>{mod.fileName}</b></p>
-      <p>Install Dir: <b>{mod.installDir}</b></p>
-      <p>Description: <b>{mod.description}</b></p>
+      <h3>Add A Mod Profile</h3>
+      <p>Name: <TextInput small bind:value={text} /></p>
+      <div><Button on:click={handleDone}>Done</Button></div>
     </div>
   </div>
 {/if}
@@ -49,6 +54,8 @@
     margin-bottom: 1em;
     display: flex;
     align-items: center;
+    text-align: center;
+    justify-content: center;
     gap: 0.5em;
   }
 
@@ -57,7 +64,7 @@
     gap: 1em;
     margin-bottom: 0.25em;
     padding: 0.25em 0;
-    border-bottom: 2px solid var(--grey-900);
+    align-items: center;
   }
 
   b {
@@ -81,12 +88,18 @@
   }
 
   .modal {
-    width: min(750px, 90vw);
+    width: min(400px, 90vw);
     display: inline-block;
     border-radius: 0.5em;
     padding: 3em 2em;
     color: var(--grey-100);
     background-color: var(--grey-500);
     box-shadow: 0 0 2em rgba(0,0,0,0.8);
+  }
+
+  .modal div {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
   }
 </style>

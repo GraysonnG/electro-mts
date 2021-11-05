@@ -17,7 +17,7 @@ const setFileOwnership = async (filePath) => {
 
 }
 
-const getModInfoFromMTSJSON = (mtsJSON, dir) => {
+const getModInfoFromMTSJSON = (mtsJSON, dir, fileName) => {
   try {
     const data = JSON.parse(mtsJSON)
     if (data.name === "ModTheSpire") throw "Ignoring MTS"
@@ -29,6 +29,7 @@ const getModInfoFromMTSJSON = (mtsJSON, dir) => {
       description: data.description,
       checked: false,
       installDir: dir,
+      fileName,
       deps: data.dependencies
     }
   } catch (e) {
@@ -45,7 +46,7 @@ const getInfosFromStsFolderMods = async (stsPath) => {
       const jarPath = path.join(modsFolder, file)
       const zip = new StreamZip.async({ file: jarPath})
       const mtsJSON = await zip.entryData('ModTheSpire.json')
-      return getModInfoFromMTSJSON(mtsJSON.toString("utf8"), jarPath)
+      return getModInfoFromMTSJSON(mtsJSON.toString("utf8"), jarPath, file)
     }))
 
     return infos
@@ -67,9 +68,9 @@ const getInfosFromWorkshopFolderMods = async (mtsDir) => {
     setFileOwnership(modJarPath)
     const zip = new StreamZip.async({ file: modJarPath })
     const mtsJSON = await zip.entryData('ModTheSpire.json')
-    return getModInfoFromMTSJSON(mtsJSON.toString(), modJarPath)
+    return getModInfoFromMTSJSON(mtsJSON.toString(), modJarPath, mod)
   })).catch(e => {
-    console.log(e)
+    console.error(e)
   })
 }
 

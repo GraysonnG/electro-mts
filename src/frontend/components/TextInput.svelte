@@ -3,17 +3,17 @@
 
   export let placeholder = undefined
   export let value
+  export let small = false
 
   const dispatch = createEventDispatcher()
 
   const handleOnChange = (e) => {
-    console.log(e)
     dispatch('change', e)
   }
   
 </script>
 
-<input {placeholder} type="text" bind:value on:change={handleOnChange}/>
+<input class:small {placeholder} type="text" bind:value on:change={handleOnChange}/>
 
 <style>
   input {
@@ -25,6 +25,10 @@
     color: var(--grey-100);
     font-size: 1.2em;
     outline: none;
+  }
+
+  input.small {
+    font-size: 1em;
   }
 
   input:focus {

@@ -64,7 +64,6 @@
   <EvaIcon
     color="#c5c6c7"
     on:click={() => {
-      console.log("hello")
       openDetails(data.id)
     }}
     name="arrow-down-outline"/>

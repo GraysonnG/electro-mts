@@ -3,11 +3,13 @@ const { openDialog } = require('../dialog')
 const { launch } = require('../mts/launcher')
 const { getPathDefaults } = require('../mts/path')
 const { loadModInfos } = require('../mts/loader')
+const { saveProfiles } = require('../mts/profiles')
 
 const register = (mainWindow) => {
-  ipcMain.on('launch-mts', (_e, data) => {
-    console.log(data)
-    launch(data.stsDir, data.mtsDir)
+  ipcMain.on('launch-mts', async (_e, data) => {
+    await saveProfiles(data.profiles)
+
+    launch(data.stsDir, data.mtsDir, data.profiles.defaultList || "<default>")
   })
   
   ipcMain.on('open-dialog', async (e, data) => {
@@ -15,7 +17,7 @@ const register = (mainWindow) => {
     loadModInfos(paths[0], mainWindow)
   })
 
-  ipcMain.on('init', async (_e, data) => {
+  ipcMain.on('init', async (_e, _data) => {
     const stsPath = getPathDefaults()
     loadModInfos(stsPath, mainWindow)
   })
