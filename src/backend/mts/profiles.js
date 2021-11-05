@@ -1,13 +1,14 @@
 const path = require("path")
 const fs = require('fs')
+const { LINUX, MAC, WINDOWS } = require('../../common/constants')
 
 const getConfigPath = () => {
   let baseDir;
   switch (process.platform) {
-    case 'linux':
+    case LINUX:
       // TODO: Make this work on linux
       break;
-    case 'win32':
+    case WINDOWS:
       let appdata = process.env.LOCALAPPDATA
       if (!appdata) {
         appdata = process.env.APPDATA

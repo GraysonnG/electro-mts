@@ -1,4 +1,5 @@
 import { writable } from "svelte/store";
+import { CHANNELS } from '../../common/constants';
 
 export const state = writable({
   modList: [],
@@ -11,7 +12,8 @@ export const state = writable({
   profiles: null
 })
 
-window.ipcRenderer.on('update-state', (payload) => {
+// data in
+window.ipcRenderer.on(CHANNELS.UPDATE_STATE, (payload) => {
   state.update(oldState => {
     return {
       ...oldState,
@@ -19,6 +21,11 @@ window.ipcRenderer.on('update-state', (payload) => {
     }
   })
 })
+
+// data out
+export const sendToLauncher = (s) => {
+  window.launcher.launchMts(s)
+}
 
 const modifyModList = (callback) => {
   state.update(s => {
@@ -53,22 +60,6 @@ const enableDependencies = (mod) => {
       })
     })
   }
-}
-
-export const sendToLauncher = (s) => {
-
-
-  // const final = {
-  //   ...s,
-  //   profiles: {
-  //     defaultList: s.profiles.defaultList
-  //     lists: {
-
-  //     }
-  //   }
-  // }
-
-  window.launcher.launchMts(s)
 }
 
 export const toggleMod = (modId) => {

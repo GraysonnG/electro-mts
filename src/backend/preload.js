@@ -1,14 +1,21 @@
 const { ipcRenderer, contextBridge } = require('electron')
+const { 
+  CHANNELS: { 
+    INIT,
+    LAUNCH_MTS,
+    OPEN_DIALOG,
+  }
+} = require('../common/constants')
 
 contextBridge.exposeInMainWorld('launcher', {
   launchMts: (data) => {
-    ipcRenderer.send('launch-mts', data)
+    ipcRenderer.send(LAUNCH_MTS, data)
   },
   openDialog: (data) => {
-    ipcRenderer.send('open-dialog', data)
+    ipcRenderer.send(OPEN_DIALOG, data)
   },
   init: () => {
-    ipcRenderer.send('init', {})
+    ipcRenderer.send(INIT, {})
   }
 })
 

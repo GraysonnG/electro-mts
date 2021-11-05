@@ -1,17 +1,22 @@
 const path = require('path')
 const os = require('os')
 
+const { LINUX, MAC, WINDOWS } = require('../../common/constants')
+
 const getPathDefaults = () => {
-  let p = null
+  let p = []
   switch (process.platform) {
-    case 'linux':
+    case LINUX:
       const homedir = os.homedir()
-      p = path.join(os.homedir(), "/.steam/steam/steamapps/common/SlayTheSpire")
+      p.push(path.join(os.homedir(), "/.steam/steam/steamapps/common/SlayTheSpire"))
       break;
-    case 'darwin':
+    case MAC:
+      // where the heck is sts installed on macos?
       break;
-    case 'win32':
-      p = path.join("D:/Steam/steamapps/common/SlayTheSpire/")
+    case WINDOWS:
+      p.push(path.join("D:/Steam/steamapps/common/SlayTheSpire/"))
+      p.push(path.join("C:/Program Files (x86)/Steam/steamapps/common/SlayTheSpire/"))
+      p.push(path.join("D:/Program Files (x86)/Steam/steamapps/common/SlayTheSpire/"))
       break;
   }
 

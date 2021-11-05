@@ -4,6 +4,7 @@
   import { fade, fly } from 'svelte/transition'
   import EvaIcon from '../components/EvaIcon.svelte'
   import { onMount } from "svelte";
+  import { ERROR } from '../../common/constants'
 
   const handleClick = () => {
     window.launcher.openDialog({
@@ -12,11 +13,11 @@
     })
   }
   
-  var show = $state.error === "invalid-stspath"
+  var show = $state.error === ERROR.CANT_FIND_STS
 
   onMount(() => {
     state.subscribe(s => {
-      show = s.error === "invalid-stspath"
+      show = s.error === ERROR.CANT_FIND_STS
     })
   })
 

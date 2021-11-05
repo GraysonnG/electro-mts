@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const { ERROR: { CANT_FIND_STS } } = require('../../common/constants')
 
 module.exports = {
   getStateFromPath: (stsPath) => {
@@ -14,7 +15,7 @@ module.exports = {
       "ModTheSpire.jar"
     )
 
-    if (!fs.existsSync(mtsPath)) throw "invalid-stspath"
+    if (!fs.existsSync(mtsPath)) throw CANT_FIND_STS
 
     return {
       stsDir: stsPath,

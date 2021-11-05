@@ -1,7 +1,7 @@
 const { getModInfos } = require("./modinfos")
 const { getProfiles } = require("./profiles")
 const { getStateFromPath } = require("./state")
-const CHANNEL = "update-state"
+const { CHANNELS: { UPDATE_STATE } } = require("../../common/constants")
 
 const loadModInfos = async (stsPath, window) => {
   try {
@@ -9,14 +9,14 @@ const loadModInfos = async (stsPath, window) => {
     const modList = await getModInfos(paths)
     const profiles = await getProfiles()
 
-    window.webContents.send(CHANNEL, {
+    window.webContents.send(UPDATE_STATE, {
       ...paths,
       modList,
       profiles,
       error: undefined
     })
   } catch (e) {
-    window.webContents.send(CHANNEL, {
+    window.webContents.send(UPDATE_STATE, {
       error: e
     })
   }
