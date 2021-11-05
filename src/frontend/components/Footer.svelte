@@ -7,7 +7,7 @@
   import AddProfile from '../modals/AddProfile.svelte';
 
   let current
-  let modalOpen = true
+  let modalOpen = false
 
   onMount(() => {
     state.subscribe(s => {

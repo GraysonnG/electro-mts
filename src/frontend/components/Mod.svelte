@@ -80,7 +80,7 @@
     gap: 1em;
     align-items: center;
     cursor: pointer;
-    transition: border 500ms;
+    transition: border 500ms, transform 200ms;
   }
 
   div.error {
@@ -89,6 +89,7 @@
 
   div:hover {
     border: 2px solid var(--grey-100);
+    transform: scale(1.02);
   }
 
   .selected {

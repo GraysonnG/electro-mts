@@ -8,7 +8,7 @@ const launch = (stsPath, mtsPath) => {
     const oldDir = process.cwd()
     process.chdir(sts)
     console.log("Switching process working dir:", process.cwd())
-    child.execFile('java', ['-jar', mts])
+    child.execFile('java', [ '-jar', mts, "--skip-launcher" ])
   } catch (e) {
     console.error(e)
   }

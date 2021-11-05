@@ -22,9 +22,15 @@
     background-color: transparent;
     appearance: none;
     color: var(--grey-100);
+    
+  }
+
+  div:hover {
+    transform: scale(1.05);
   }
 
   div {
+    transition: transform 250ms;
     position: relative;
   }
 

@@ -5,7 +5,7 @@
   import TextInput from "../components/TextInput.svelte";
   import Button from "../components/Button.svelte";
 
-  export let show = true
+  export let show = false
   let text = ""
 
   const handleClickOutside = () => {
@@ -65,15 +65,6 @@
     margin-bottom: 0.25em;
     padding: 0.25em 0;
     align-items: center;
-  }
-
-  b {
-    font-size: 0.8em;
-  }
-
-  h3 span {
-    font-size: 0.7em;
-    opacity: 0.5;
   }
   
   .bg {

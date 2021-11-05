@@ -27,6 +27,10 @@
     z-index: 0;
   }
 
+  button:hover {
+    transform: scale(1.05);
+  }
+
   button.small {
     font-size: 0.7em;
     padding: 0.5em 1em;
