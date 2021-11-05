@@ -10,12 +10,13 @@
   onMount(() => {
     state.subscribe(s => {
       show = !!s.detailId
+      document.body.style.overflow = !!s.detailId ? "hidden" : null
       mod = s.modList.filter(m => (
         m.id === s.detailId
       ))[0]
     })
   })
-
+  
   const handleClickOutside = () => {
     closeDetails()
   }

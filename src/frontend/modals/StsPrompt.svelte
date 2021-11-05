@@ -3,7 +3,7 @@
   import { state } from '../state/store'
   import { fade, fly } from 'svelte/transition'
   import EvaIcon from '../components/EvaIcon.svelte'
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { ERROR } from '../../common/constants'
 
   const handleClick = () => {
@@ -20,7 +20,6 @@
       show = s.error === ERROR.CANT_FIND_STS
     })
   })
-
 
 </script>
 

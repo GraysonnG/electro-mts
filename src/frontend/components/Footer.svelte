@@ -32,15 +32,15 @@
   {/if}
   <Button square on:click={() => {
     modalOpen = true
+    document.body.style.overflow = "hidden"
   }}>
     <EvaIcon 
       name="plus-outline"
       size=12
     />
   </Button>
+  <AddProfile bind:show={modalOpen} />
 </footer>
-
-<AddProfile bind:show={modalOpen} />
 
 <style>
   footer {

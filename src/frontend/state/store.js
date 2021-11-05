@@ -14,7 +14,6 @@ export const state = writable({
 
 // data in
 window.ipcRenderer.on(CHANNELS.UPDATE_STATE, (payload) => {
-  console.log(payload)
   state.update(oldState => {
     return {
       ...oldState,

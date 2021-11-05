@@ -11,6 +11,7 @@
   const handleClickOutside = () => {
     show = false
     text = ""
+    document.body.style.overflow = null
   }
 
   const handleDone = () => {
@@ -28,6 +29,7 @@
       show = false
       text = ""
     }
+    document.body.style.overflow = null
   }
 </script>
 

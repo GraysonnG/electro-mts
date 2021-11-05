@@ -10,10 +10,9 @@
 
   onMount(() => {
     state.subscribe(s => {
-      console.log(s)
       show = s.error && s.error !== ERROR.CANT_FIND_STS
+      document.body.style.overflow = show ? "hidden" : null
       error = s.error
-      console.log(error)
     })
   })
 </script>
