@@ -1,5 +1,5 @@
 <script>
-  import { fade, fly } from "svelte/transition"
+  import { fly } from "svelte/transition"
   import { state } from "../state/store"
   import { clickOutside } from "../helpers/clickoutside"
   import TextInput from "../components/TextInput.svelte";
@@ -11,7 +11,6 @@
   const handleClickOutside = () => {
     show = false
     text = ""
-    document.body.style.overflow = null
   }
 
   const handleDone = () => {
@@ -29,25 +28,19 @@
       show = false
       text = ""
     }
-    document.body.style.overflow = null
   }
 </script>
 
 {#if show}
   <div
-  transition:fade={{ duration: 200 }}
-  class="bg"
-  >
-    <div
-      use:clickOutside
-      on:click_outside={handleClickOutside}
-      class="modal"
-      in:fly={{ y: -200, duration: 200 }}
-      out:fly={{ y: 200, duration: 200 }}>
-      <h3>Add A Mod Profile</h3>
-      <p>Name: <TextInput small bind:value={text} /></p>
-      <div><Button on:click={handleDone}>Done</Button></div>
-    </div>
+    use:clickOutside
+    on:click_outside={handleClickOutside}
+    class="modal"
+    in:fly={{ y: 200, duration: 200 }}
+    out:fly={{ y: 200, duration: 200 }}>
+    <h3>Add A Mod Profile</h3>
+    <p>Name: <TextInput small bind:value={text} /></p>
+    <div><Button on:click={handleDone}>Done</Button></div>
   </div>
 {/if}
 
@@ -68,26 +61,19 @@
     padding: 0.25em 0;
     align-items: center;
   }
-  
-  .bg {
-    position: fixed;
-    display: grid;
-    z-index: 10000;
-    inset: 0;
-    background-color: rgba(0,0,0,0.5);
-    backdrop-filter: blur(3px);
-    place-items: center;
-    overflow: hidden;
-  }
 
   .modal {
+    position: absolute;
     width: min(400px, 90vw);
     display: inline-block;
     border-radius: 0.5em;
-    padding: 3em 2em;
+    padding: 2em 2em;
     color: var(--grey-100);
     background-color: var(--grey-500);
     box-shadow: 0 0 2em rgba(0,0,0,0.8);
+    bottom: calc(100% + 1em);
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .modal div {

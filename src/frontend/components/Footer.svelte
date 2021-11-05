@@ -32,7 +32,6 @@
   {/if}
   <Button square on:click={() => {
     modalOpen = true
-    document.body.style.overflow = "hidden"
   }}>
     <EvaIcon 
       name="plus-outline"

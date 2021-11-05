@@ -58,7 +58,7 @@
     display: inline-block;
     border-radius: 0.5em;
     padding: 3em 2em;
-    color: white;
+    color: var(--grey-100);
     background-color: var(--grey-500);
     box-shadow: 0 0 2em rgba(0,0,0,0.8);
   }

@@ -22,7 +22,7 @@
     border-radius: 0.25em;
     background-color: transparent;
     transition: transform 250ms;
-    color: white;
+    color: var(--grey-100);
     overflow: hidden;
     z-index: 0;
   }

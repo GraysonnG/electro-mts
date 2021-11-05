@@ -7,6 +7,8 @@
 	import { state } from "./state/store"
 	import GlobalCSS from "./styles/GlobalCSS.svelte";
 	import GenericError from "./modals/GenericError.svelte";
+	import Button from "./components/Button.svelte";
+	import EvaIcon from "./components/EvaIcon.svelte";
 
 	window.launcher.init()
 </script>
@@ -15,7 +17,24 @@
 
 <main>
 	<div>
-		<TextInput bind:value={$state.filter} placeholder="Search Installed Mods..." />
+		<section>
+			<EvaIcon
+				name="refresh-outline"
+				size=24
+			/>
+
+			<EvaIcon
+				name="options-2-outline"
+				size=24
+			/>
+			
+			<TextInput bind:value={$state.filter} placeholder="Search Installed Mods..." />
+
+			<EvaIcon
+				name="settings-outline"
+				size=24
+			/>
+		</section>
 		<List />
 	</div>
 	<Footer />
@@ -39,5 +58,12 @@
 		gap: 1em;
 		padding: 1em;
 		background-color:var(--grey-900);
+	}
+
+	section {
+		display: flex;
+		gap: 1em;
+		padding: 0 0.5em;
+		align-items: center;
 	}
 </style>

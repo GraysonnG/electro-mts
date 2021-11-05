@@ -19,7 +19,7 @@
   input {
     background-color: transparent;
     border: 2px solid var(--grey-100);
-    border-radius: 0.5em;
+    border-radius: 0.25em;
     padding: 0.5em 1em;
     width: 100%;
     color: var(--grey-100);
@@ -32,6 +32,7 @@
   }
 
   input:focus {
+    background-color: var(--grey-500);
     border-color: var(--primary-700);
   }
 </style>

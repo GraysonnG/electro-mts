@@ -61,18 +61,23 @@
       {/each}
     </span>
   {/if}
+
+  <EvaIcon
+    color="#c5c6c7"
+    name="heart-outline"/>
+
   <EvaIcon
     color="#c5c6c7"
     on:click={() => {
       openDetails(data.id)
     }}
-    name="arrow-down-outline"/>
+    name="chevron-right"/>
 </div>
 
 <style>
   div {
     display: flex;
-    color: white;
+    color: var(--grey-100);
     border-radius: 0.5em;
     border: 2px solid transparent;
     background-color: var(--grey-500);
