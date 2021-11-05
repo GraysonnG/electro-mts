@@ -6,6 +6,7 @@
 	import ModInfo from "./modals/ModInfo.svelte";
 	import { state } from "./state/store"
 	import GlobalCSS from "./styles/GlobalCSS.svelte";
+	import GenericError from "./modals/GenericError.svelte";
 
 	window.launcher.init()
 </script>
@@ -20,6 +21,7 @@
 	<Footer />
 </main>
 
+<GenericError />
 <ModInfo />
 <StsPrompt />
 

@@ -7,7 +7,6 @@ module.exports = {
   },
   ERROR: {
     CANT_FIND_STS: "invalid-stspath",
-    UNKNOWN: "unknown-error",
   },
   LINUX: 'linux',
   WINDOWS: 'win32',

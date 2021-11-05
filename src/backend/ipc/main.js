@@ -34,16 +34,23 @@ const register = (mainWindow) => {
   ipcMain.on(INIT, async (_e, _data) => {
     const stsPaths = getPathDefaults()
 
-    for (let path of stsPaths) {
-      if (fs.existsSync(path)) {
-        loadModInfos(path, mainWindow)
-        return;
+    try {
+      for (let path of stsPaths) {
+        if (fs.existsSync(path)) {
+          loadModInfos(path, mainWindow)
+          return;
+        }
       }
-    }
 
-    mainWindow.webContents.send(UPDATE_STATE, {
-      error: CANT_FIND_STS
-    })
+      mainWindow.webContents.send(UPDATE_STATE, {
+        error: CANT_FIND_STS
+      })
+    } catch (e) {
+      console.error(e)
+      mainWindow.webContents.send(UPDATE_STATE, {
+        error: e
+      })
+    }
   })
 }
 
