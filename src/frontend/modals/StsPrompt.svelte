@@ -17,7 +17,6 @@
 
   onMount(() => {
     state.subscribe(s => {
-      console.log(s)
       show = s.error === "invalid-stspath"
     })
   })

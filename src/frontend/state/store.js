@@ -5,7 +5,9 @@ export const state = writable({
   stsDir: "",
   mtsDir: "",
   filter: "",
+  launchEnabled: true,
   error: undefined,
+  detailId: null,
 })
 
 window.ipcRenderer.on('update-state', (payload) => {
@@ -62,4 +64,31 @@ export const unselectAllMods = () => {
       modList: list
     }
   })
+}
+
+export const openDetails = (modid) => {
+  state.update(s => {
+    return {
+      ...s,
+      detailId: modid
+    }
+  })  
+}
+
+export const setLaunchEnabled = (flag) => {
+  state.update(s => {
+    return {
+      ...s,
+      launchEnabled: flag
+    }
+  })
+}
+
+export const closeDetails = () => {
+  state.update(s => {
+    return {
+      ...s,
+      detailId: null
+    }
+  })  
 }

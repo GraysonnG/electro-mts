@@ -23,7 +23,11 @@
 
   onMount(() => {
     state.subscribe(state => {
-      masterList = filterMods(state.modList, state.filter)
+      masterList = filterMods(state.modList, state.filter).sort((a, b) => {
+        if (a > b) return 1
+        if (a < b) return -1
+        return 0
+      })
     })
   })
 </script>

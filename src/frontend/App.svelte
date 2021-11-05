@@ -3,6 +3,7 @@
 	import List from "./components/List.svelte"
 	import TextInput from "./components/TextInput.svelte"
 	import StsPrompt from "./modals/StsPrompt.svelte"
+	import ModInfo from "./modals/ModInfo.svelte";
 	import { state } from "./state/store"
 
 	window.launcher.init()
@@ -16,6 +17,7 @@
 	<Footer />
 </main>
 
+<ModInfo />
 <StsPrompt />
 
 <style>
