@@ -93,13 +93,9 @@ const getModInfos = async (paths) => {
   const outInfos = Array.from(modInfoMap.values())
     .filter(info => (Object.keys(info).length !== 0))
 
-  // console.log(outInfos)
-
   return [
     ...outInfos
   ]
-  
-  // return list
 }
 
 module.exports = {

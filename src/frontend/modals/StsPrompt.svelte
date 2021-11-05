@@ -3,7 +3,7 @@
   import { state } from '../state/store'
   import { fade, fly } from 'svelte/transition'
   import EvaIcon from '../components/EvaIcon.svelte'
-import { onMount } from "svelte";
+  import { onMount } from "svelte";
 
   const handleClick = () => {
     window.launcher.openDialog({

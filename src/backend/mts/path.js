@@ -7,9 +7,12 @@ const getPathDefaults = () => {
     case 'linux':
       const homedir = os.homedir()
       p = path.join(os.homedir(), "/.steam/steam/steamapps/common/SlayTheSpire")
+      break;
     case 'darwin':
-
+      break;
     case 'win32':
+      p = path.join("D:/Steam/steamapps/common/SlayTheSpire/")
+      break;
   }
 
   return p;
