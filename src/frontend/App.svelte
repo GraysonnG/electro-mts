@@ -5,9 +5,12 @@
 	import StsPrompt from "./modals/StsPrompt.svelte"
 	import ModInfo from "./modals/ModInfo.svelte";
 	import { state } from "./state/store"
+	import GlobalCSS from "./styles/GlobalCSS.svelte";
 
 	window.launcher.init()
 </script>
+
+<GlobalCSS />
 
 <main>
 	<div>
