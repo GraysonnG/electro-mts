@@ -66,7 +66,7 @@
     </span>
   {/if}
 
-  <FavoriteButton on:favorite={handleFavorite} bind:enabled={data.favorited} />
+  <FavoriteButton on:favorite={handleFavorite} enabled={data.favorited} />
 
   <EvaIcon
     color="var(--grey-100)"

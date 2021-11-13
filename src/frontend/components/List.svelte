@@ -27,9 +27,17 @@
 
   onMount(() => {
     state.subscribe(state => {
-      masterList = filterMods(state.modList, state.filter).sort((a, b) => {
-        if (a > b) return 1
-        if (a < b) return -1
+      console.log(state)
+
+      masterList = filterMods(state.modList, state.filter)
+      .sort((a, b) => {
+        if (a.name > b.name) return 1
+        if (a.name < b.name) return -1
+        return 0
+      })
+      .sort((a, b) => {
+        if (a.favorited && !b.favorited) return -1
+        if (!a.favorited && b.favorited) return 1
         return 0
       })
     })

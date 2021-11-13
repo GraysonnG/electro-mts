@@ -6,7 +6,6 @@
   
   const dispatch = createEventDispatcher()
   const handleClick = (event) => {
-    enabled = !enabled
     dispatch('favorite', event)
   }
 </script>

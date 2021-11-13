@@ -120,4 +120,13 @@ export const setLaunchEnabled = (flag) => {
 
 export const favoriteMod = (modid) => {
   window.launcher.favorite(modid)
+
+  modifyModList(list => {
+    list.forEach(mod => {
+      if (mod.id === modid) {
+        mod.favorited = !mod.favorited
+      }
+    })
+  })
+
 }
