@@ -117,3 +117,7 @@ export const setLaunchEnabled = (flag) => {
     }
   })
 }
+
+export const favoriteMod = (modid) => {
+  window.launcher.favorite(modid)
+}

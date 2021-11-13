@@ -1,7 +1,7 @@
 <script>
   import Mod from './Mod.svelte'
   import Button from './Button.svelte'
-  import { state, toggleMod, unselectAllMods } from '../state/store'
+  import { favoriteMod, state, toggleMod, unselectAllMods } from '../state/store'
   import { crossfadePos } from '../animations/slide'
   import { flip } from "svelte/animate"
   import { filterMods } from '../helpers/filter'
@@ -11,6 +11,10 @@
 
   const handleClick = (e) => {
     toggleMod(e.detail.modId)
+  }
+
+  const handleFavorite = (e) => {
+    favoriteMod(e.detail.modId)
   }
 
   const removeAll = () => {
@@ -43,7 +47,7 @@
         in:recieve={{key: mod.id, duration: 250}}
         out:send={{key: mod.id, duration: 250}}
         animate:flip={{duration: 250}}>
-        <Mod on:click={handleClick} data={mod} />
+        <Mod on:favorite={handleFavorite} on:click={handleClick} data={mod} />
       </li>
     {/each}
   {/if}
@@ -53,7 +57,7 @@
       in:recieve={{key: mod.id, duration: 250}}
       out:send={{key: mod.id, duration: 250}}
       animate:flip={{duration: 250}}>
-      <Mod on:click={handleClick} data={mod} />
+      <Mod on:favorite={handleFavorite} on:click={handleClick} data={mod} />
     </li>
   {/each}
   

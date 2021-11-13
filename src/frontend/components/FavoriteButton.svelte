@@ -1,12 +1,14 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import EvaIcon from "./EvaIcon.svelte";
 
   export let enabled = false
-
-  const handleClick = () => {
+  
+  const dispatch = createEventDispatcher()
+  const handleClick = (event) => {
     enabled = !enabled
+    dispatch('favorite', event)
   }
-
 </script>
 
 <div class:enabled on:click={handleClick}>

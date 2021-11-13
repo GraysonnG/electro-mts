@@ -19,6 +19,13 @@
     }
   }
 
+  const handleFavorite = (e) => {
+    dispatch('favorite', {
+      modId: data.id,
+      event: e
+    })
+  }
+
   let authorString = data.author.length > 50 ? `${data.author.substring(0, 50)}...` : data.author
   let error = false
   let missingDependencies = []
@@ -59,7 +66,7 @@
     </span>
   {/if}
 
-  <FavoriteButton />
+  <FavoriteButton on:favorite={handleFavorite} bind:enabled={data.favorited} />
 
   <EvaIcon
     color="var(--grey-100)"
