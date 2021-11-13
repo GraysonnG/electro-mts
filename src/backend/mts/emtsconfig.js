@@ -20,6 +20,9 @@ const getConfigPath = () => {
       }
       baseDir = appdata
       break;
+    case MAC:
+      // where the heck is mts config on mac?
+      break;
   }
 
   return baseDir
