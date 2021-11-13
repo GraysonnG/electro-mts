@@ -19,7 +19,7 @@ const setFileOwnership = async (filePath) => {
 
 }
 
-const getModInfoFromMTSJSON = (mtsJSON, dir, fileName, genres = []) => {
+const getModInfoFromMTSJSON = (mtsJSON, dir, fileName, tags = [], local = true) => {
   try {
     const data = JSON.parse(mtsJSON)
     if (data.name === "ModTheSpire") throw "Ignoring MTS"
@@ -44,7 +44,8 @@ const getModInfoFromMTSJSON = (mtsJSON, dir, fileName, genres = []) => {
       fileName,
       deps: data.dependencies,
       favorited,
-      genres
+      tags,
+      local
     }
   } catch (e) {
     console.error(`\n\n${dir}`)
@@ -84,7 +85,7 @@ const getInfosFromWorkshopFolderMods = async (mtsDir, stsDir) => {
     const zip = new StreamZip.async({ file: modJarPath })
     const mtsJSON = await zip.entryData('ModTheSpire.json')
 
-    return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), modJarPath, mod, modData.genres)
+    return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), modJarPath, mod, modData.tags, false)
   })).catch(e => {
     console.error(e)
   })
@@ -106,6 +107,10 @@ const getModInfos = async (paths) => {
   workshopInfos.forEach(info => {
     if (!modInfoMap.has(info.id)) {
       modInfoMap.set(info.id, info)
+    } else {
+      if (info.tags) {
+        modInfoMap.get(info.id).tags.push(...info.tags)
+      }
     }
   })
 

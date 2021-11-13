@@ -11,6 +11,7 @@ const loadModInfos = async (stsPath, window) => {
 
     window.webContents.send(UPDATE_STATE, {
       ...paths,
+      loading: false,
       modList,
       profiles,
       error: undefined

@@ -52,7 +52,22 @@
 
 <div class:selected class:error on:click={handleClick}>
   <Checkbox bind:checked={selected} id={data.id} />
-  <span>{data.name}</span>
+  <span>
+    {data.name}
+    {#if data.local}
+      <EvaIcon 
+        color="var(--grey-100)"
+        name="folder"
+        size=12
+      />
+    {:else}
+      <EvaIcon 
+        color="var(--grey-100)"
+        name="globe"
+        size=12
+      />
+    {/if}
+  </span>
   <span class="small">({data.version})</span>
   <span class="small grow">by: {authorString}</span>
   {#if error}

@@ -2,6 +2,7 @@ import { writable } from "svelte/store";
 import { CHANNELS } from '../../common/constants';
 
 export const state = writable({
+  loading: true,
   modList: [],
   stsDir: "",
   mtsDir: "",

@@ -23,7 +23,7 @@ module.exports = {
             try {
               output.push({
                 path: data[i + 2],
-                genres: data[i + 4].split(',')
+                tags: data[i + 4].split(',')
               })
             } catch (e) {
               // haha fuck me right
