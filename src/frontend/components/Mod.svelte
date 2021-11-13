@@ -1,10 +1,10 @@
 <script>
-  import { createEventDispatcher, onDestroy, onMount } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import Checkbox from "./Checkbox.svelte";
   import Button from "./Button.svelte";
   import EvaIcon from "./EvaIcon.svelte";
   import FavoriteButton from "./FavoriteButton.svelte";
-  import { openDetails, setLaunchEnabled, state, toggleMod } from "../state/store";
+  import { openDetails, state, toggleMod } from "../state/store";
 
   export let data;
 

@@ -12,7 +12,9 @@ const createWindow = () => {
 
   mainWindow.loadFile(path.join(__dirname, "..", "..", "public", "index.html"))
   mainWindow.removeMenu()
-  mainWindow.webContents.openDevTools()
+  if (process.env.ROLLUP_WATCH) {
+    mainWindow.webContents.openDevTools()
+  }
 
   require("./ipc/main").register(mainWindow)
 
