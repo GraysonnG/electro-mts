@@ -3,21 +3,7 @@ const fs = require('fs')
 const fsPromises = fs.promises
 const StreamZip = require('node-stream-zip')
 const { config } = require('./emtsconfig')
-const { getModData } = require('./mts')
-
-const setFileOwnership = async (filePath) => {
-  try {
-    const { fd } = await fsPromises.open(filePath, 'r')
-    fs.fchmod(fd, 0o444, err => {
-      if (err) {
-        throw err
-      }
-    })
-  } catch (e) {
-    console.error(e)
-  }
-
-}
+const { getModDataFromSteam, getModDataManual } = require('./mts')
 
 const getModInfoFromMTSJSON = (mtsJSON, dir, fileName, tags = [], local = true) => {
   try {
@@ -74,8 +60,12 @@ const getInfosFromStsFolderMods = async (stsPath) => {
 }
 
 const getInfosFromWorkshopFolderMods = async (mtsDir, stsDir) => {
-
-  const data = await getModData(mtsDir, stsDir)
+  let data;
+  try {
+    data = await getModDataFromSteam(mtsDir, stsDir)
+  } catch (e) {
+    data = await getModDataManual(mtsDir, stsDir)
+  }
 
   return Promise.all(data.map(async modData => {
     const mod = fs.readdirSync(modData.path)
@@ -90,7 +80,6 @@ const getInfosFromWorkshopFolderMods = async (mtsDir, stsDir) => {
     console.error(e)
   })
 }
-
 
 const getModInfos = async (paths) => {
   const workshopInfos = await getInfosFromWorkshopFolderMods(paths.mtsDir, paths.stsDir)

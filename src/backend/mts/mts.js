@@ -1,9 +1,10 @@
 const path = require('path')
+const fs = require('fs')
 const child = require('child_process')
 const STEAM_WORKSHOP = "com.evacipated.cardcrawl.modthespire.steam.SteamWorkshop"
 
 module.exports = {
-  async getModData(mtsDir, stsDir) {
+  async getModDataFromSteam(mtsDir, stsDir) {
     const bigArg = `${mtsDir}${path.delimiter}${path.join(stsDir, "desktop-1.0.jar")}`
 
     const execFilePromise = () => {
@@ -38,5 +39,16 @@ module.exports = {
     }
 
     return await execFilePromise()
+  },
+  async getModDataManual(mtsDir, stsDir) {
+    const wksDir = path.join(mtsDir, "..", "..")
+    const modData = fs.readdirSync(wksDir).map(folder => {
+      return {
+        path: path.join(wksDir, folder),
+        tags: []
+      }
+    })
+
+    return modData
   }
 }
