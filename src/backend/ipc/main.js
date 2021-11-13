@@ -13,6 +13,7 @@ const {
     LAUNCH_MTS,
     OPEN_DIALOG,
     UPDATE_STATE,
+    FAVORITE
   }, 
   ERROR: {
     CANT_FIND_STS
@@ -63,6 +64,23 @@ const register = (mainWindow) => {
         error: e
       })
     }
+  })
+
+  ipcMain.on(FAVORITE, async (_e, data) => {
+    const favorites = config.data.favorites
+
+    if (favorites.includes(data.id)) {
+      const index = favorites.indexOf(data.id)
+      if (index > -1) {
+        favorites.splice(index, 1)
+      }
+    } else {
+      favorites.push(data.id)
+    }
+
+    console.log(favorites)
+
+    saveConfigData({favorites})
   })
 }
 

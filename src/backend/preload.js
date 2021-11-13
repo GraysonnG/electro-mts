@@ -4,6 +4,7 @@ const {
     INIT,
     LAUNCH_MTS,
     OPEN_DIALOG,
+    FAVORITE,
   }
 } = require('../common/constants')
 
@@ -16,6 +17,11 @@ contextBridge.exposeInMainWorld('launcher', {
   },
   init: () => {
     ipcRenderer.send(INIT, {})
+  },
+  favorite: (modid) => {
+    ipcRenderer.send(FAVORITE, {
+      id: modid
+    })
   }
 })
 
