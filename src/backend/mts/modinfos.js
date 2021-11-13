@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const fsPromises = fs.promises
 const StreamZip = require('node-stream-zip')
+const { config } = require('./emtsconfig')
 
 const setFileOwnership = async (filePath) => {
   try {
@@ -21,8 +22,18 @@ const getModInfoFromMTSJSON = (mtsJSON, dir, fileName) => {
   try {
     const data = JSON.parse(mtsJSON)
     if (data.name === "ModTheSpire") throw "Ignoring MTS"
+
+    const id = data.modid
+    let favorited = false
+
+    config.data.favorites.forEach(mid => {
+      if (mid === id) {
+        favorited = true
+      }
+    })
+
     return {
-      id: data.modid,
+      id,
       name: data.name,
       author: data.author ? data.author : data.author_list.join(", "),
       version: data.version,
@@ -30,7 +41,8 @@ const getModInfoFromMTSJSON = (mtsJSON, dir, fileName) => {
       checked: false,
       installDir: dir,
       fileName,
-      deps: data.dependencies
+      deps: data.dependencies,
+      favorited,
     }
   } catch (e) {
     console.error(`\n\n${dir}`)

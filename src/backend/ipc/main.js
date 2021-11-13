@@ -5,6 +5,7 @@ const { launch } = require('../mts/launcher')
 const { getPathDefaults } = require('../mts/path')
 const { loadModInfos } = require('../mts/loader')
 const { saveProfiles } = require('../mts/profiles')
+const { saveConfigData, config, loadConfigData } = require('../mts/emtsconfig')
 
 const { 
   CHANNELS: { 
@@ -29,15 +30,26 @@ const register = (mainWindow) => {
   ipcMain.on(OPEN_DIALOG, async (e, data) => {
     const paths = openDialog(data)
     loadModInfos(paths[0], mainWindow)
+    saveConfigData({
+      stsFolderLoc: paths[0]
+    })
   })
 
   ipcMain.on(INIT, async (_e, _data) => {
+    await loadConfigData()
     const stsPaths = getPathDefaults()
+
+    if (config.data.stsFolderLoc && config.data.stsFolderLoc !== "") {
+      stsPaths.push(config.data.stsFolderLoc)
+    }
 
     try {
       for (let path of stsPaths) {
         if (fs.existsSync(path)) {
           loadModInfos(path, mainWindow)
+          saveConfigData({
+            stsFolderLoc: path
+          })
           return;
         }
       }

@@ -3,6 +3,7 @@
   import Checkbox from "./Checkbox.svelte";
   import Button from "./Button.svelte";
   import EvaIcon from "./EvaIcon.svelte";
+  import FavoriteButton from "./FavoriteButton.svelte";
   import { openDetails, setLaunchEnabled, state, toggleMod } from "../state/store";
 
   export let data;
@@ -39,10 +40,6 @@
     })
   })
 
-  onDestroy(() => {
-
-  })
-
   $: selected = data.checked
 </script>
 
@@ -62,12 +59,10 @@
     </span>
   {/if}
 
-  <EvaIcon
-    color="#c5c6c7"
-    name="heart-outline"/>
+  <FavoriteButton />
 
   <EvaIcon
-    color="#c5c6c7"
+    color="var(--grey-100)"
     on:click={() => {
       openDetails(data.id)
     }}

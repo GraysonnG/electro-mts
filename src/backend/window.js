@@ -15,7 +15,7 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools()
 
   require("./ipc/main").register(mainWindow)
-  // load from disk the config and update the front-end store
+
   return mainWindow
 }
 

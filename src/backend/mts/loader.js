@@ -2,6 +2,7 @@ const { getModInfos } = require("./modinfos")
 const { getProfiles } = require("./profiles")
 const { getStateFromPath } = require("./state")
 const { CHANNELS: { UPDATE_STATE } } = require("../../common/constants")
+const { config } = require("./emtsconfig")
 
 const loadModInfos = async (stsPath, window) => {
   try {
