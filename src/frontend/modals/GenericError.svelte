@@ -61,5 +61,7 @@
     color: var(--grey-100);
     background-color: var(--grey-500);
     box-shadow: 0 0 2em rgba(0,0,0,0.8);
+    max-width: 90vw;
+    overflow-wrap: break-word;
   }
 </style>
