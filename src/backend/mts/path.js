@@ -8,7 +8,7 @@ const getPathDefaults = () => {
   switch (process.platform) {
     case LINUX:
       const homedir = os.homedir()
-      p.push(path.join(os.homedir(), "/.steam/steam/steamapps/common/SlayTheSpire"))
+      p.push(path.join(homedir, "/.steam/steam/steamapps/common/SlayTheSpire"))
       break;
     case MAC:
       // where the heck is sts installed on macos?
