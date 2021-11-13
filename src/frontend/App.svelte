@@ -8,6 +8,7 @@
 	import GlobalCSS from "./styles/GlobalCSS.svelte";
 	import GenericError from "./modals/GenericError.svelte";
 	import EvaIcon from "./components/EvaIcon.svelte";
+	import LoadingCircle from "./components/LoadingCircle.svelte";
 
 	window.launcher.init()
 </script>
@@ -16,7 +17,7 @@
 
 <main>
 	<div>
-		<section>
+		<header>
 			<EvaIcon
 				name="refresh-outline"
 				size=24
@@ -33,8 +34,15 @@
 				name="settings-outline"
 				size=24
 			/>
-		</section>
-		<List />
+		</header>
+		{#if !$state.loading}
+			<List />
+		{:else}
+			<section>
+				<p>Loading...</p>
+				<LoadingCircle />
+			</section>
+		{/if}
 	</div>
 	<Footer />
 </main>
@@ -56,13 +64,27 @@
 		flex-direction: column;
 		gap: 1em;
 		padding: 1em;
-		background-color:var(--grey-900);
+		background-color: var(--grey-900);
+		color: var(--grey-100);
 	}
 
-	section {
+	header {
 		display: flex;
 		gap: 1em;
 		padding: 0 0.5em;
 		align-items: center;
+	}
+
+	section {
+		display: flex;
+		gap: 0.5em;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	}
+
+	section p {
+		font-weight: bold;
 	}
 </style>
