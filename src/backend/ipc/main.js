@@ -78,8 +78,6 @@ const register = (mainWindow) => {
       favorites.push(data.id)
     }
 
-    console.log(favorites)
-
     saveConfigData({favorites})
   })
 }

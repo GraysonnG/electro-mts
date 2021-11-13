@@ -27,7 +27,6 @@
 
   onMount(() => {
     state.subscribe(state => {
-      console.log(state)
 
       masterList = filterMods(state.modList, state.filter)
       .sort((a, b) => {

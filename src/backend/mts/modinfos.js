@@ -3,6 +3,7 @@ const fs = require('fs')
 const fsPromises = fs.promises
 const StreamZip = require('node-stream-zip')
 const { config } = require('./emtsconfig')
+const { getModData } = require('./mts')
 
 const setFileOwnership = async (filePath) => {
   try {
@@ -18,7 +19,7 @@ const setFileOwnership = async (filePath) => {
 
 }
 
-const getModInfoFromMTSJSON = (mtsJSON, dir, fileName) => {
+const getModInfoFromMTSJSON = (mtsJSON, dir, fileName, genres = []) => {
   try {
     const data = JSON.parse(mtsJSON)
     if (data.name === "ModTheSpire") throw "Ignoring MTS"
@@ -43,6 +44,7 @@ const getModInfoFromMTSJSON = (mtsJSON, dir, fileName) => {
       fileName,
       deps: data.dependencies,
       favorited,
+      genres
     }
   } catch (e) {
     console.error(`\n\n${dir}`)
@@ -70,19 +72,19 @@ const getInfosFromStsFolderMods = async (stsPath) => {
   }
 }
 
-const getInfosFromWorkshopFolderMods = async (mtsDir) => {
-  const wksDir = path.join(mtsDir, "..", "..")
-  const folders = fs.readdirSync(wksDir)
-  return Promise.all(folders.map(async folder => {
-    const modDir = path.join(wksDir, folder)
-    const mod = fs.readdirSync(modDir).filter(file => (
-      file.toLowerCase().endsWith(".jar")
-    ))[0]
-    const modJarPath = path.join(modDir, mod)
-    setFileOwnership(modJarPath)
+const getInfosFromWorkshopFolderMods = async (mtsDir, stsDir) => {
+
+  const data = await getModData(mtsDir, stsDir)
+
+  return Promise.all(data.map(async modData => {
+    const mod = fs.readdirSync(modData.path)
+      .filter(file => (file.toLowerCase().endsWith(".jar")))[0]
+    const modJarPath = path.join(modData.path, mod)
+
     const zip = new StreamZip.async({ file: modJarPath })
     const mtsJSON = await zip.entryData('ModTheSpire.json')
-    return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), modJarPath, mod)
+
+    return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), modJarPath, mod, modData.genres)
   })).catch(e => {
     console.error(e)
   })
@@ -90,7 +92,7 @@ const getInfosFromWorkshopFolderMods = async (mtsDir) => {
 
 
 const getModInfos = async (paths) => {
-  const workshopInfos = await getInfosFromWorkshopFolderMods(paths.mtsDir)
+  const workshopInfos = await getInfosFromWorkshopFolderMods(paths.mtsDir, paths.stsDir)
   const modsInfos = await getInfosFromStsFolderMods(paths.stsDir)
 
   const modInfoMap = new Map();

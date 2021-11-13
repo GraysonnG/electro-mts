@@ -41,6 +41,7 @@
       <p>File Name: <b>{mod.fileName}</b></p>
       <p>Install Dir: <b>{mod.installDir}</b></p>
       <p>Description: <b>{mod.description}</b></p>
+      <p>Genres: <b>{mod.genres?.join(", ")}</b></p>
     </div>
   </div>
 {/if}
