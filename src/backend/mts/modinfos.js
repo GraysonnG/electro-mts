@@ -41,6 +41,19 @@ const getModInfoFromMTSJSON = (mtsJSON, dir, fileName, tags = [], local = true) 
   }
 }
 
+const getModInfoFromJar = async (jarPath, jarName, tags = [], local = true) => {
+  try {
+    const zip = new StreamZip.async({ file: jarPath })
+    const mtsJSON = await zip.entryData('ModTheSpire.json')
+
+    return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), jarPath, jarName, tags, local)
+  } catch (e) {
+    console.error(jarPath)
+    console.error(jarName, e)
+    return null
+  }
+}
+
 const getInfosFromStsFolderMods = async (stsPath) => {
   const modsFolder = path.join(stsPath, "mods")
   try {
@@ -61,16 +74,9 @@ const getInfosFromStsFolderMods = async (stsPath) => {
         }
       })
 
-    const infos = (await Promise.all(jarPaths.map(async path => {
-      try {
-        const zip = new StreamZip.async({ file: path.full })
-        const mtsJSON = await zip.entryData('ModTheSpire.json')
-        return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), path.full, path.fileName)
-      } catch (e) {
-        console.error(path)
-        return {}
-      }
-    }))).filter(info => info !== {})
+    const infos = Promise.all(jarPaths.map(async path => {
+      return getModInfoFromJar(path.full, path.fileName)
+    }))
 
     return infos
   } catch (e) {
@@ -87,41 +93,44 @@ const getInfosFromWorkshopFolderMods = async (mtsDir, stsDir) => {
     data = await getModDataManual(mtsDir, stsDir)
   }
 
-  return (await Promise.all(data.map(async modData => {
-    const mod = fs.readdirSync(modData.path)
-      .filter(file => (file.toLowerCase().endsWith(".jar")))[0]
-    const modJarPath = path.join(modData.path, mod)
-
-    try {
-      const zip = new StreamZip.async({ file: modJarPath })
-      const mtsJSON = await zip.entryData('ModTheSpire.json')
-      return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), modJarPath, mod, modData.tags, false)
-    } catch (e) {
-      return {}
-    }
-  })).catch(e => {
+  try {
+    return Promise.all(data.map(async modData => {
+      const mod = fs.readdirSync(modData.path)
+        .filter(file => (file.toLowerCase().endsWith(".jar")))[0]
+      const modJarPath = path.join(modData.path, mod)
+  
+      return getModInfoFromJar(modJarPath, mod, modData.tags, false)
+    }))
+  } catch (e) {
     console.error(e)
-  })).filter(info => info !== {})
+    return []
+  }
 }
 
 const getModInfos = async (paths) => {
-  const workshopInfos = await getInfosFromWorkshopFolderMods(paths.mtsDir, paths.stsDir)
-  const modsInfos = await getInfosFromStsFolderMods(paths.stsDir)
-
   const modInfoMap = new Map();
+  
+  const [ stsInfos, workshopInfos ] = await Promise.all([
+    getInfosFromStsFolderMods(paths.stsDir),
+    getInfosFromWorkshopFolderMods(paths.mtsDir, paths.stsDir)
+  ])
 
   // TODO: Figure out which one is newer and use that one
-
-  modsInfos.forEach(info => {
-    modInfoMap.set(info.id, info)
+ 
+  stsInfos.forEach(info => {
+    if (info) {
+      modInfoMap.set(info.id, info)
+    }
   })
 
   workshopInfos.forEach(info => {
-    if (!modInfoMap.has(info.id)) {
-      modInfoMap.set(info.id, info)
-    } else {
-      if (info.tags) {
-        modInfoMap.get(info.id).tags.push(...info.tags)
+    if (info) {
+      if (!modInfoMap.has(info.id)) {
+        modInfoMap.set(info.id, info)
+      } else {
+        if (info.tags) {
+          modInfoMap.get(info.id).tags.push(...info.tags)
+        }
       }
     }
   })
