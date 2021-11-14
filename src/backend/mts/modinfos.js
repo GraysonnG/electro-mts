@@ -45,12 +45,32 @@ const getInfosFromStsFolderMods = async (stsPath) => {
   const modsFolder = path.join(stsPath, "mods")
   try {
     const files = fs.readdirSync(modsFolder)
-    const infos = Promise.all(files.map(async file => {
-      const jarPath = path.join(modsFolder, file)
-      const zip = new StreamZip.async({ file: jarPath})
-      const mtsJSON = await zip.entryData('ModTheSpire.json')
-      return getModInfoFromMTSJSON(mtsJSON.toString("utf8"), jarPath, file)
-    }))
+    const jarPaths = files
+      .map(file => {
+        return {
+          full: path.join(modsFolder, file),
+          fileName: file
+        }
+      })
+      .filter(path => {
+        try {
+          return fs.lstatSync(path.full).isFile()
+        } catch (e) {
+          console.error(path, e)
+          return false
+        }
+      })
+
+    const infos = (await Promise.all(jarPaths.map(async path => {
+      const zip = new StreamZip.async({ file: path.full })
+      try {
+        const mtsJSON = await zip.entryData('ModTheSpire.json')
+        return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), path.full, path.fileName)
+      } catch (e) {
+        console.error(path)
+        return {}
+      }
+    }))).filter(info => info !== {})
 
     return infos
   } catch (e) {
