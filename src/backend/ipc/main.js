@@ -5,7 +5,7 @@ const { launch } = require('../mts/launcher')
 const { getPathDefaults } = require('../mts/path')
 const { loadModInfos } = require('../mts/loader')
 const { saveProfiles } = require('../mts/profiles')
-const { saveConfigData, config, loadConfigData } = require('../mts/emtsconfig')
+const { saveConfigData, config, loadConfigData } = require('../config')
 
 const { 
   CHANNELS: { 

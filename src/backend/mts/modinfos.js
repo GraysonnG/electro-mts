@@ -1,8 +1,7 @@
 const path = require('path')
 const fs = require('fs')
-const fsPromises = fs.promises
 const StreamZip = require('node-stream-zip')
-const { config } = require('./emtsconfig')
+const { config } = require('../config')
 const { getModDataFromSteam, getModDataManual } = require('./mts')
 
 const getModInfoFromMTSJSON = (mtsJSON, dir, fileName, tags = [], local = true) => {
@@ -58,13 +57,12 @@ const getInfosFromStsFolderMods = async (stsPath) => {
   const modsFolder = path.join(stsPath, "mods")
   try {
     const files = fs.readdirSync(modsFolder)
-    const jarPaths = files
-      .map(file => {
-        return {
-          full: path.join(modsFolder, file),
-          fileName: file
-        }
-      })
+
+    return Promise.all(files
+      .map(file => ({
+        full: path.join(modsFolder, file),
+        fileName: file
+      }))
       .filter(path => {
         try {
           return fs.lstatSync(path.full).isFile()
@@ -73,12 +71,9 @@ const getInfosFromStsFolderMods = async (stsPath) => {
           return false
         }
       })
+      .map(path => (getModInfoFromJar(path.full, path.fileName)))
+    )
 
-    const infos = Promise.all(jarPaths.map(async path => {
-      return getModInfoFromJar(path.full, path.fileName)
-    }))
-
-    return infos
   } catch (e) {
     console.error(e)
     return []
@@ -86,7 +81,7 @@ const getInfosFromStsFolderMods = async (stsPath) => {
 }
 
 const getInfosFromWorkshopFolderMods = async (mtsDir, stsDir) => {
-  let data;
+  let data = [];
   try {
     data = await getModDataFromSteam(mtsDir, stsDir)
   } catch (e) {
@@ -108,7 +103,7 @@ const getInfosFromWorkshopFolderMods = async (mtsDir, stsDir) => {
 }
 
 const getModInfos = async (paths) => {
-  const modInfoMap = new Map();
+  const modInfoMap = new Map()
   
   const [ stsInfos, workshopInfos ] = await Promise.all([
     getInfosFromStsFolderMods(paths.stsDir),

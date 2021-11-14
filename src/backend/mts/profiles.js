@@ -1,6 +1,6 @@
 const path = require("path")
 const fs = require('fs')
-const { getConfigPath } = require("./emtsconfig")
+const { getConfigPath } = require("../config")
 
 const getMtsConfigPath = () => {
   const configPath = getConfigPath()
