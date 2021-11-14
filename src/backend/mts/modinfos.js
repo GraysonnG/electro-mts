@@ -62,8 +62,8 @@ const getInfosFromStsFolderMods = async (stsPath) => {
       })
 
     const infos = (await Promise.all(jarPaths.map(async path => {
-      const zip = new StreamZip.async({ file: path.full })
       try {
+        const zip = new StreamZip.async({ file: path.full })
         const mtsJSON = await zip.entryData('ModTheSpire.json')
         return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), path.full, path.fileName)
       } catch (e) {
@@ -87,18 +87,21 @@ const getInfosFromWorkshopFolderMods = async (mtsDir, stsDir) => {
     data = await getModDataManual(mtsDir, stsDir)
   }
 
-  return Promise.all(data.map(async modData => {
+  return (await Promise.all(data.map(async modData => {
     const mod = fs.readdirSync(modData.path)
       .filter(file => (file.toLowerCase().endsWith(".jar")))[0]
     const modJarPath = path.join(modData.path, mod)
 
-    const zip = new StreamZip.async({ file: modJarPath })
-    const mtsJSON = await zip.entryData('ModTheSpire.json')
-
-    return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), modJarPath, mod, modData.tags, false)
+    try {
+      const zip = new StreamZip.async({ file: modJarPath })
+      const mtsJSON = await zip.entryData('ModTheSpire.json')
+      return getModInfoFromMTSJSON(mtsJSON.toString('utf8'), modJarPath, mod, modData.tags, false)
+    } catch (e) {
+      return {}
+    }
   })).catch(e => {
     console.error(e)
-  })
+  })).filter(info => info !== {})
 }
 
 const getModInfos = async (paths) => {
