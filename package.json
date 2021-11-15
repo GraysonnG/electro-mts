@@ -2,7 +2,7 @@
   "name": "electro-mts",
   "author": "Blank The Evil",
   "description": "An electron app that acts as a replacement to MTS",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "main": "main.js",
   "scripts": {

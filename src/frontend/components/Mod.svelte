@@ -5,8 +5,10 @@
   import EvaIcon from "./EvaIcon.svelte";
   import FavoriteButton from "./FavoriteButton.svelte";
   import { openDetails, state, toggleMod } from "../state/store";
+  import { cull } from "../helpers/culling"
 
   export let data;
+  let visible = true;
 
   const dispatch = createEventDispatcher()
   const handleClick = (e) => {
@@ -24,6 +26,10 @@
       modId: data.id,
       event: e
     })
+  }
+
+  const handleCull = (e) => {
+    visible = e.detail.visible
   }
 
   let authorString = data.author.length > 50 ? `${data.author.substring(0, 50)}...` : data.author
@@ -50,45 +56,47 @@
   $: selected = data.checked
 </script>
 
-<div class:selected class:error on:click={handleClick}>
-  <Checkbox bind:checked={selected} id={data.id} />
-  <span>
-    {data.name}
-    {#if data.local}
-      <EvaIcon 
-        color="var(--grey-100)"
-        name="folder"
-        size=12
-      />
-    {:else}
-      <EvaIcon 
-        color="var(--grey-100)"
-        name="globe"
-        size=12
-      />
-    {/if}
-  </span>
-  <span class="small">({data.version})</span>
-  <span class="small grow">by: {authorString}</span>
-  {#if error}
-    <span class="missing">
-      Missing:
-      {#each missingDependencies as dep}
-        <Button small on:click={() => {
-          toggleMod(dep)
-        }}>{dep}</Button>
-      {/each}
+<div use:cull on:cull={handleCull} class:selected class:error on:click={handleClick}>
+  {#if visible}
+    <Checkbox bind:checked={selected} id={data.id} />
+    <span>
+      {data.name}
+      {#if data.local}
+        <EvaIcon 
+          color="var(--grey-100)"
+          name="folder"
+          size=12
+        />
+      {:else}
+        <EvaIcon 
+          color="var(--grey-100)"
+          name="globe"
+          size=12
+        />
+      {/if}
     </span>
+    <span class="small">({data.version})</span>
+    <span class="small grow">by: {authorString}</span>
+    {#if error}
+      <span class="missing">
+        Missing:
+        {#each missingDependencies as dep}
+          <Button small on:click={() => {
+            toggleMod(dep)
+          }}>{dep}</Button>
+        {/each}
+      </span>
+    {/if}
+
+    <FavoriteButton on:favorite={handleFavorite} enabled={data.favorited} />
+
+    <EvaIcon
+      color="var(--grey-100)"
+      on:click={() => {
+        openDetails(data.id)
+      }}
+      name="chevron-right"/>
   {/if}
-
-  <FavoriteButton on:favorite={handleFavorite} enabled={data.favorited} />
-
-  <EvaIcon
-    color="var(--grey-100)"
-    on:click={() => {
-      openDetails(data.id)
-    }}
-    name="chevron-right"/>
 </div>
 
 <style>
@@ -103,6 +111,7 @@
     align-items: center;
     cursor: pointer;
     transition: border 500ms, transform 200ms;
+    min-height: 44px;
   }
 
   div.error {
