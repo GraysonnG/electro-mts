@@ -27,7 +27,6 @@
 
   onMount(() => {
     state.subscribe(state => {
-      console.log("update modlist")
       masterList = filterMods(state.modList, state.filter)
     })
   })

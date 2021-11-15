@@ -67,16 +67,11 @@ const enableDependencies = (mod) => {
 
 export const sortModlistBy = (propertyName, asc = true) => {
   state.update(s => {
-  
-    console.log([...s.modList])
-
     const newList = [...s.modList.sort((a, b) => {
       if (a[propertyName] > b[propertyName]) return asc ? -1 : 1
       if (a[propertyName] < b[propertyName]) return asc ? 1 : -1
       return 0
     })]
-
-    console.log(newList)
 
     return {
       ...s,
@@ -142,8 +137,6 @@ export const setLaunchEnabled = (flag) => {
 }
 
 export const favoriteMod = (modid) => {
-  console.log("favorite")
-
   window.launcher.favorite(modid)
 
   modifyModList(list => {
