@@ -1,7 +1,7 @@
 <script>
   import Mod from './Mod.svelte'
   import Button from './Button.svelte'
-  import { favoriteMod, state, toggleMod, unselectAllMods } from '../state/store'
+  import { favoriteMod, sortModlistBy, state, toggleMod, unselectAllMods } from '../state/store'
   import { crossfadePos } from '../animations/slide'
   import { flip } from "svelte/animate"
   import { filterMods } from '../helpers/filter'
@@ -27,18 +27,8 @@
 
   onMount(() => {
     state.subscribe(state => {
-
+      console.log("update modlist")
       masterList = filterMods(state.modList, state.filter)
-      .sort((a, b) => {
-        if (a.name > b.name) return 1
-        if (a.name < b.name) return -1
-        return 0
-      })
-      .sort((a, b) => {
-        if (a.favorited && !b.favorited) return -1
-        if (!a.favorited && b.favorited) return 1
-        return 0
-      })
     })
   })
 </script>

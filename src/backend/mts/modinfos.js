@@ -132,6 +132,11 @@ const getModInfos = async (paths) => {
 
   const outInfos = Array.from(modInfoMap.values())
     .filter(info => (Object.keys(info).length !== 0))
+    .sort((a, b) => {
+      if (a.name > b.name) return 1
+      if (a.name < b.name) return -1
+      return 0
+    })
 
   return [
     ...outInfos

@@ -21,6 +21,8 @@ window.ipcRenderer.on(CHANNELS.UPDATE_STATE, (payload) => {
       ...payload
     }
   })
+
+  sortModlistBy("favorited")
 })
 
 // data out
@@ -61,6 +63,26 @@ const enableDependencies = (mod) => {
       })
     })
   }
+}
+
+export const sortModlistBy = (propertyName, asc = true) => {
+  state.update(s => {
+  
+    console.log([...s.modList])
+
+    const newList = [...s.modList.sort((a, b) => {
+      if (a[propertyName] > b[propertyName]) return asc ? -1 : 1
+      if (a[propertyName] < b[propertyName]) return asc ? 1 : -1
+      return 0
+    })]
+
+    console.log(newList)
+
+    return {
+      ...s,
+      modList: newList
+    }
+  })
 }
 
 export const toggleMod = (modId) => {
@@ -120,6 +142,8 @@ export const setLaunchEnabled = (flag) => {
 }
 
 export const favoriteMod = (modid) => {
+  console.log("favorite")
+
   window.launcher.favorite(modid)
 
   modifyModList(list => {
@@ -130,4 +154,6 @@ export const favoriteMod = (modid) => {
     })
   })
 
+  sortModlistBy("name", false)
+  sortModlistBy("favorited")
 }

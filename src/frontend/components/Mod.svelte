@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, onMount } from "svelte";
+  import { createEventDispatcher } from "svelte";
   import Checkbox from "./Checkbox.svelte";
   import Button from "./Button.svelte";
   import EvaIcon from "./EvaIcon.svelte";
@@ -33,26 +33,11 @@
   }
 
   let authorString = data.author.length > 50 ? `${data.author.substring(0, 50)}...` : data.author
-  let error = false
-  let missingDependencies = []
-
-  onMount(() => {
-    state.subscribe(s => {
-      error = false
-      missingDependencies = []
-      if (data.deps && data.checked) {
-        s.modList.forEach(mod => {
-            data.deps.forEach(dep => {
-            if (mod.id === dep && !mod.checked) {
-              missingDependencies.push(mod.id)
-              error = true
-            }
-          });
-        })
-      }
-    })
-  })
-
+  
+  $: missingDependencies = $state.modList.filter(mod => (
+    !mod.checked && data.deps && data.deps.includes(mod.id)
+  )).map (mod => mod.id)
+  $: error = data.checked && missingDependencies.length > 0
   $: selected = data.checked
 </script>
 
