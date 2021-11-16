@@ -32,3 +32,8 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
     })
   },
 })
+
+window.addEventListener('DOMContentLoaded', () => {
+  const title = document.getElementById("app-title")
+  title.innerText = `Electro MTS v${process.env.npm_package_version}`
+})
