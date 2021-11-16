@@ -1,7 +1,7 @@
 <script>
   import Mod from './Mod.svelte'
   import Button from './Button.svelte'
-  import { favoriteMod, sortModlistBy, state, toggleMod, unselectAllMods } from '../state/store'
+  import { favoriteMod, state, toggleMod, unselectAllMods } from '../state/store'
   import { crossfadePos } from '../animations/slide'
   import { flip } from "svelte/animate"
   import { filterMods } from '../helpers/filter'

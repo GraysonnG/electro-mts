@@ -1,14 +1,13 @@
 <script>
 	import Footer from "./components/Footer.svelte"
 	import List from "./components/List.svelte"
-	import TextInput from "./components/TextInput.svelte"
 	import StsPrompt from "./modals/StsPrompt.svelte"
 	import ModInfo from "./modals/ModInfo.svelte";
 	import { state } from "./state/store"
 	import GlobalCSS from "./styles/GlobalCSS.svelte";
 	import GenericError from "./modals/GenericError.svelte";
-	import EvaIcon from "./components/EvaIcon.svelte";
 	import LoadingCircle from "./components/LoadingCircle.svelte";
+	import Header from "./components/Header.svelte";
 
 	window.launcher.init()
 </script>
@@ -17,24 +16,7 @@
 
 <main>
 	<div>
-		<header>
-			<EvaIcon
-				name="refresh-outline"
-				size=24
-			/>
-
-			<EvaIcon
-				name="options-2-outline"
-				size=24
-			/>
-			
-			<TextInput bind:value={$state.filter} placeholder="Search Installed Mods..." />
-
-			<EvaIcon
-				name="settings-outline"
-				size=24
-			/>
-		</header>
+		<Header />
 		{#if !$state.loading}
 			<List />
 		{:else}
@@ -66,13 +48,6 @@
 		padding: 1em;
 		background-color: var(--grey-900);
 		color: var(--grey-100);
-	}
-
-	header {
-		display: flex;
-		gap: 1em;
-		padding: 0 0.5em;
-		align-items: center;
 	}
 
 	section {
