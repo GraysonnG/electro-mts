@@ -28,6 +28,10 @@
     })
   }
 
+  const handleDetails = (e) => {
+    openDetails(data.id)
+  }
+
   const handleCull = (e) => {
     visible = e.detail.visible
   }
@@ -42,7 +46,13 @@
   $: tagfound = data.tags.find(tag => tag.toLowerCase() === $state.filter.toLowerCase())
 </script>
 
-<div use:cull on:cull={handleCull} class:selected class:error on:click={handleClick}>
+<div 
+  use:cull 
+  on:cull={handleCull} 
+  class:selected 
+  class:error 
+  on:contextmenu={handleDetails}
+  on:click={handleClick}>
   {#if visible}
     <Checkbox bind:checked={selected} id={data.id} />
     <span>
@@ -83,9 +93,7 @@
 
     <EvaIcon
       color="var(--grey-100)"
-      on:click={() => {
-        openDetails(data.id)
-      }}
+      on:click={handleDetails}
       name="chevron-right"/>
   {/if}
 </div>
