@@ -39,6 +39,7 @@
   )).map (mod => mod.id)
   $: error = data.checked && missingDependencies.length > 0
   $: selected = data.checked
+  $: tagfound = data.tags.find(tag => tag.toLowerCase() === $state.filter.toLowerCase())
 </script>
 
 <div use:cull on:cull={handleCull} class:selected class:error on:click={handleClick}>
@@ -62,6 +63,11 @@
     </span>
     <span class="small">({data.version})</span>
     <span class="small grow">by: {authorString}</span>
+    {#if tagfound}
+      <span class="tag">
+        <Button small>{tagfound}</Button>
+      </span>
+    {/if}
     {#if error}
       <span class="missing">
         Missing:

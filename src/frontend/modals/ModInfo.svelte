@@ -60,6 +60,7 @@
     margin-bottom: 0.25em;
     padding: 0.25em 0;
     border-bottom: 2px solid var(--grey-900);
+    line-height: 1.5;
   }
 
   b {
