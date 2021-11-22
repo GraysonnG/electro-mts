@@ -16,13 +16,6 @@
       on:click={handleRefresh}
     />
   </div>
-
-  <div>
-    <EvaIcon
-      name="options-2-outline"
-      size=24
-    />
-  </div>
   
   <TextInput bind:value={$state.filter} placeholder="Search Installed Mods..." />
 
