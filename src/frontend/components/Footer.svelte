@@ -1,6 +1,5 @@
 <script>
   import Button from './Button.svelte'
-  import Select from "./Select.svelte"
   import CustomSelect from './CustomSelect.svelte'
   import { state, enableModList, sendToLauncher } from '../state/store'
   import { onMount } from 'svelte';
@@ -40,7 +39,9 @@
     />
   </Button>
 
-  <Button square>
+  <Button square on:click={() => {
+    window.launcher.saveProfiles($state.profiles)
+  }}>
     <EvaIcon 
       name="save"
       size=12
@@ -52,6 +53,7 @@
 
 <style>
   footer {
+  position: relative;
     height: 4em;
     width: 100vw;
     display: flex;

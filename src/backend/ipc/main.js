@@ -14,7 +14,8 @@ const {
     OPEN_DIALOG,
     UPDATE_STATE,
     FAVORITE,
-    WINDOW_EVENT
+    WINDOW_EVENT,
+    SAVE_PROFILES,
   }, 
   ERROR: {
     CANT_FIND_STS
@@ -85,6 +86,10 @@ const register = (mainWindow) => {
 
   ipcMain.on(WINDOW_EVENT, (_e, data) => {
     handleWindowEvent(mainWindow, data.type)
+  })
+
+  ipcMain.on(SAVE_PROFILES, async (_e, profiles) => {
+    await saveProfiles(profiles)
   })
 }
 

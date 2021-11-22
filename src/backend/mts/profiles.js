@@ -20,6 +20,7 @@ const getProfiles = async () => {
 }
 
 const saveProfiles = (profiles) => {
+  console.log("Saving Profiles...")
   const configPath = getMtsConfigPath()
   const output = JSON.stringify(profiles, null, "  ")
   fs.writeFileSync(configPath, output)

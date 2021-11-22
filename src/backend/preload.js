@@ -5,7 +5,8 @@ const {
     LAUNCH_MTS,
     OPEN_DIALOG,
     FAVORITE,
-    WINDOW_EVENT
+    WINDOW_EVENT,
+    SAVE_PROFILES
   }
 } = require('../common/constants')
 
@@ -23,6 +24,9 @@ contextBridge.exposeInMainWorld('launcher', {
     ipcRenderer.send(FAVORITE, {
       id: modid
     })
+  },
+  saveProfiles: (profiles) => {
+    ipcRenderer.send(SAVE_PROFILES, profiles)
   }
 })
 

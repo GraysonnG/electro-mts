@@ -3,12 +3,7 @@
   import { fly } from 'svelte/transition';
   import { clickOutside } from "../helpers/clickoutside";
 
-  export let items = [
-    "<Default>",
-    "demo",
-    "really-really-long-profile-name"
-  ]
-  
+  export let items = []
   export let value = items[0]
   export let small = false
 
@@ -26,10 +21,10 @@
 
 </script>
 
-<div class="select" class:small on:click={toggle} use:clickOutside on:click_outside={() => { console.log("click outside"); open = false }}>
+<div class="select" class:open class:small on:click={toggle} use:clickOutside on:click_outside={() => { open = false }}>
   <div>
-    {value}
-    <!-- <EvaIcon name="arrow-down-outline" size=13 /> -->
+    <span>{value}</span>
+    <EvaIcon name="arrow-down" size=14 />
   </div>
   {#if open}
     <div class="items" transition:fly={{ y: 30, duration: 150 }}>
@@ -43,12 +38,59 @@
 <style>
   .select {
     position: relative;
-    padding: 0.5em 2em;
     border: 2px solid var(--primary-700);
     border-radius: 0.25em;
     color: var(--grey-100);
     cursor: pointer;
     font-size: 0.825em;
+    transition: transform 250ms;
+    display: flex;
+    padding-right: 1em;
+  }
+
+  .select > div:first-child:after {
+    content: "";
+    position: absolute;
+    height: 0%;
+    width: 0%;
+    left: 50%;
+    top: 50%;
+    background-color: var(--primary-700);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    transition: width 100ms, height 100ms;
+    opacity: 0.2;
+  }
+
+  .select:hover {
+    transform: scale(1.05);
+  }
+
+  .select:hover > div:first-child::after, .select.open > div:first-child::after {
+    width: 100%;
+    height: 100%;
+  }
+
+  .select.open {
+    transform: scale(1.05);
+  }
+
+  .select > div:first-child {
+    padding: 0.5em 0;
+    display: flex;
+  }
+
+  .select div span {
+    padding: 0 2em;
+    padding-right: 0.5em;
+  }
+
+  .select div :global(svg) {
+    transition: transform 250ms;
+  }
+
+  .select.open div :global(svg) {
+    transform: rotate(180deg);
   }
 
   .items {

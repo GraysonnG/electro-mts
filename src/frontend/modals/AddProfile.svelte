@@ -36,8 +36,8 @@
     use:clickOutside
     on:click_outside={handleClickOutside}
     class="modal"
-    in:fly={{ y: 200, duration: 200 }}
-    out:fly={{ y: 200, duration: 200 }}>
+    in:fly={{ y: 30, duration: 200 }}
+    out:fly={{ y: 30, duration: 200 }}>
     <h3>Add A Mod Profile</h3>
     <p>Name: <TextInput small bind:value={text} /></p>
     <div><Button on:click={handleDone}>Done</Button></div>

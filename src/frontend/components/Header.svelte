@@ -17,7 +17,7 @@
     />
   </div>
   
-  <TextInput bind:value={$state.filter} placeholder="Search Installed Mods..." />
+  <TextInput bind:value={$state.filter} placeholder="Search Name, Author, and Tags..." />
 
   <div>
     <EvaIcon
