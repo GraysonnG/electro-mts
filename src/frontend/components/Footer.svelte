@@ -1,6 +1,7 @@
 <script>
   import Button from './Button.svelte'
   import Select from "./Select.svelte"
+  import CustomSelect from './CustomSelect.svelte'
   import { state, enableModList, sendToLauncher } from '../state/store'
   import { onMount } from 'svelte';
   import EvaIcon from './EvaIcon.svelte';
@@ -28,7 +29,7 @@
   }}>Launch</Button>
   
   {#if $state.profiles}
-    <Select items={Object.keys($state.profiles.lists)} bind:value={$state.profiles.defaultList} />
+    <CustomSelect items={Object.keys($state.profiles.lists)} bind:value={$state.profiles.defaultList} />
   {/if}
   <Button square on:click={() => {
     modalOpen = true
@@ -38,6 +39,14 @@
       size=12
     />
   </Button>
+
+  <Button square>
+    <EvaIcon 
+      name="save"
+      size=12
+    />
+  </Button>
+
   <AddProfile bind:show={modalOpen} />
 </footer>
 
