@@ -70,7 +70,7 @@
     align-items: center;
     -webkit-app-region: drag;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-    z-index: 2;
+    z-index: 20000;
   }
 
   .window-controls {

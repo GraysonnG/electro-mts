@@ -22,7 +22,7 @@
   }
 
   let masterList = filterMods($state.modList, $state.filter)
-  $: activeList = masterList.filter(m => m.checked)
+  $: activeList = $state.modList.filter(m => m.checked)
   $: nonactiveList = masterList.filter(m => !m.checked)
 
   onMount(() => {
@@ -40,9 +40,8 @@
     </span>
     {#each activeList as mod (mod.id)}
       <li
-        in:recieve={{key: mod.id, duration: 250}}
-        out:send={{key: mod.id, duration: 250}}
-        animate:flip={{duration: 250}}>
+        
+        animate:flip={{duration: 150}}>
         <Mod on:favorite={handleFavorite} on:click={handleClick} data={mod} />
       </li>
     {/each}
@@ -50,9 +49,8 @@
   <span>Available:</span>
   {#each nonactiveList as mod (mod.id)}
     <li
-      in:recieve={{key: mod.id, duration: 250}}
-      out:send={{key: mod.id, duration: 250}}
-      animate:flip={{duration: 250}}>
+      
+      animate:flip={{duration: 150}}>
       <Mod on:favorite={handleFavorite} on:click={handleClick} data={mod} />
     </li>
   {/each}
