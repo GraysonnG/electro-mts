@@ -5,6 +5,7 @@ module.exports = {
     OPEN_DIALOG: "open-dialog",
     UPDATE_STATE: "update-state",
     FAVORITE: "favorite-mod",
+    WINDOW_EVENT: "window-event",
   },
   ERROR: {
     CANT_FIND_STS: "invalid-stspath",

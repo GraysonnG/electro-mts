@@ -5,6 +5,7 @@ const {
     LAUNCH_MTS,
     OPEN_DIALOG,
     FAVORITE,
+    WINDOW_EVENT
   }
 } = require('../common/constants')
 
@@ -31,6 +32,30 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
       callback(...args)
     })
   },
+})
+
+contextBridge.exposeInMainWorld('titleBar', {
+  title: `Electro MTS v${process.env.npm_package_version}`,
+  minimize: () => {
+    ipcRenderer.send(WINDOW_EVENT, {
+      type: 'min'
+    })
+  },
+  maximize: () => {
+    ipcRenderer.send(WINDOW_EVENT, {
+      type: 'max'
+    })
+  },
+  unmaximize: () => {
+    ipcRenderer.send(WINDOW_EVENT, {
+      type: 'unmax'
+    })
+  },
+  close: () => {
+    ipcRenderer.send(WINDOW_EVENT, {
+      type: 'close'
+    })
+  }
 })
 
 window.addEventListener('DOMContentLoaded', () => {

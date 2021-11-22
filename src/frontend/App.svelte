@@ -8,15 +8,18 @@
 	import GenericError from "./modals/GenericError.svelte";
 	import LoadingCircle from "./components/LoadingCircle.svelte";
 	import Header from "./components/Header.svelte";
+	import TitleBar from "./components/TitleBar.svelte";
 
 	window.launcher.init()
 </script>
 
 <GlobalCSS />
 
+<TitleBar />
+<Header />
+
 <main>
 	<div>
-		<Header />
 		{#if !$state.loading}
 			<List />
 		{:else}
@@ -26,8 +29,8 @@
 			</section>
 		{/if}
 	</div>
-	<Footer />
 </main>
+<Footer />
 
 <GenericError />
 <ModInfo />
@@ -35,10 +38,13 @@
 
 <style>
 	main {
-		height: 100vh;
+		background-color: var(--grey-900);
+		flex: 1;
 		width: 100%;
 		display: grid;
 		grid-template-rows: 1fr 4em;
+		overflow: auto;
+		position: relative;
 	}
 
 	div {
@@ -46,7 +52,6 @@
 		flex-direction: column;
 		gap: 1em;
 		padding: 1em;
-		background-color: var(--grey-900);
 		color: var(--grey-100);
 	}
 

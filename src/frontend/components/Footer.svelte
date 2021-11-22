@@ -43,9 +43,6 @@
 
 <style>
   footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
     height: 4em;
     width: 100vw;
     display: flex;
@@ -55,5 +52,6 @@
     background-color: var(--grey-500);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     padding: 0 2em;
+    z-index: 1;
   }
 </style>

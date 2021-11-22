@@ -31,8 +31,11 @@
   header {
 		display: flex;
 		gap: 1em;
-		padding: 0 0.5em;
+		padding: 1em;
 		align-items: center;
+    background-color: var(--grey-900);
+    box-shadow: 0 0 15px var(--grey-900);
+    z-index: 1;
 	}
 
   div {

@@ -13,12 +13,14 @@ const {
     LAUNCH_MTS,
     OPEN_DIALOG,
     UPDATE_STATE,
-    FAVORITE
+    FAVORITE,
+    WINDOW_EVENT
   }, 
   ERROR: {
     CANT_FIND_STS
   } 
 } = require('../../common/constants')
+const { handleWindowEvent } = require('./window')
 
 
 const register = (mainWindow) => {
@@ -79,6 +81,10 @@ const register = (mainWindow) => {
     }
 
     saveConfigData({favorites})
+  })
+
+  ipcMain.on(WINDOW_EVENT, (_e, data) => {
+    handleWindowEvent(mainWindow, data.type)
   })
 }
 
