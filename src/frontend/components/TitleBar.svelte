@@ -71,6 +71,7 @@
     -webkit-app-region: drag;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
     z-index: 20000;
+    position: relative;
   }
 
   .window-controls {
@@ -102,7 +103,21 @@
   .window-info {
     padding: 0.25em 0.5em;
     font-weight: bold;
-    padding-left: 1em;
+    padding-left: 2em;
+  }
+
+  .window-info::before {
+    position: absolute;
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-left: solid var(--primary-500);
+    border-top: solid var(--primary-500);
+    border-bottom: solid transparent;
+    border-right: solid transparent;
+    border-width: 14px;
+    top: 0;
+    left: 0;
   }
 
 </style>
