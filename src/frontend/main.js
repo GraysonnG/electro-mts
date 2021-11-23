@@ -5,4 +5,6 @@ const app = new App({
 	target: document.body,
 });
 
+window.launcher.init()
+
 export default app;

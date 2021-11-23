@@ -1,24 +1,18 @@
 <script>
-	import Footer from "./components/Footer.svelte"
-	import List from "./components/List.svelte"
-	import StsPrompt from "./modals/StsPrompt.svelte"
-	import ModInfo from "./modals/ModInfo.svelte";
-	import { state } from "./state/store"
+	import Footer from "./components/Footer.svelte";
+	import List from "./components/List.svelte";
+	import { state } from "./state/store";
 	import GlobalCSS from "./styles/GlobalCSS.svelte";
-	import GenericError from "./modals/GenericError.svelte";
 	import LoadingCircle from "./components/LoadingCircle.svelte";
 	import Header from "./components/Header.svelte";
 	import TitleBar from "./components/TitleBar.svelte";
 	import Tooltip from "./components/Tooltip.svelte";
-
-	window.launcher.init()
+	import Modals from "./modals/Modals.svelte";
 </script>
 
 <GlobalCSS />
-
 <TitleBar />
 <Header />
-
 <main>
 	<div>
 		{#if !$state.loading}
@@ -32,10 +26,7 @@
 	</div>
 </main>
 <Footer />
-
-<GenericError />
-<ModInfo />
-<StsPrompt />
+<Modals />
 <Tooltip />
 
 <style>
