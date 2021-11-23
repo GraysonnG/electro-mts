@@ -5,7 +5,7 @@
   import EvaIcon from "./EvaIcon.svelte";
   import FavoriteButton from "./FavoriteButton.svelte";
   import { openDetails, state, toggleMod } from "../state/store";
-  import { cull } from "../helpers/culling"
+  import { cull } from "../helpers/culling";
 
   export let data;
   let visible = true;

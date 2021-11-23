@@ -1,7 +1,7 @@
 <script>
-  import TextInput from "./TextInput.svelte"
-  import EvaIcon from "./EvaIcon.svelte"
-  import { state } from "../state/store"
+  import TextInput from "./TextInput.svelte";
+  import EvaIcon from "./EvaIcon.svelte";
+  import { state } from "../state/store";
 
   const handleRefresh = () => {
 

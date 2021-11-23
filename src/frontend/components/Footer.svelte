@@ -1,7 +1,7 @@
 <script>
-  import Button from './Button.svelte'
-  import CustomSelect from './CustomSelect.svelte'
-  import { state, enableModList, sendToLauncher } from '../state/store'
+  import Button from './Button.svelte';
+  import CustomSelect from './CustomSelect.svelte';
+  import { state, enableModList, sendToLauncher } from '../state/store';
   import { onMount } from 'svelte';
   import EvaIcon from './EvaIcon.svelte';
   import AddProfile from '../modals/AddProfile.svelte';

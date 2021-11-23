@@ -1,10 +1,10 @@
 <script>
-  import Button from "../components/Button.svelte"
-  import { state } from '../state/store'
-  import { fade, fly } from 'svelte/transition'
-  import EvaIcon from '../components/EvaIcon.svelte'
-  import { onDestroy, onMount } from "svelte";
-  import { ERROR } from '../../common/constants'
+  import Button from "../components/Button.svelte";
+  import { state } from '../state/store';
+  import { fade, fly } from 'svelte/transition';
+  import EvaIcon from '../components/EvaIcon.svelte';
+  import { onMount } from "svelte";
+  import { ERROR } from '../../common/constants';
 
   const handleClick = () => {
     window.launcher.openDialog({

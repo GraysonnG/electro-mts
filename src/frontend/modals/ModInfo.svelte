@@ -1,8 +1,8 @@
 <script>
   import { onMount } from "svelte";
-  import { fade, fly } from "svelte/transition"
-  import { state, closeDetails } from "../state/store"
-  import { clickOutside } from "../helpers/clickoutside"
+  import { fade, fly } from "svelte/transition";
+  import { state, closeDetails } from "../state/store";
+  import { clickOutside } from "../helpers/clickoutside";
 
   let show = false
   let mod;

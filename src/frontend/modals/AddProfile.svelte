@@ -1,7 +1,7 @@
 <script>
-  import { fly } from "svelte/transition"
-  import { state } from "../state/store"
-  import { clickOutside } from "../helpers/clickoutside"
+  import { fly } from "svelte/transition";
+  import { state } from "../state/store";
+  import { clickOutside } from "../helpers/clickoutside";
   import TextInput from "../components/TextInput.svelte";
   import Button from "../components/Button.svelte";
 

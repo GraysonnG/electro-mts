@@ -1,5 +1,5 @@
 <script>
-  import EvaIcon from "./EvaIcon.svelte"
+  import EvaIcon from "./EvaIcon.svelte";
 
   let maximized = false;
 

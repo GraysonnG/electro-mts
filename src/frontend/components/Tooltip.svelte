@@ -1,5 +1,5 @@
 <script>
-  import { tooltipData } from "../state/tooltip"
+  import { tooltipData } from "../state/tooltip";
   import { fly } from 'svelte/transition';
 
   $: style = `

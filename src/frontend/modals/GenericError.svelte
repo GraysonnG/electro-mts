@@ -2,8 +2,8 @@
   import { onMount } from "svelte";
   import { ERROR } from "../../common/constants";
   import { state } from '../state/store';
-  import { fade, fly } from 'svelte/transition'
-  import EvaIcon from '../components/EvaIcon.svelte'
+  import { fade, fly } from 'svelte/transition';
+  import EvaIcon from '../components/EvaIcon.svelte';
 
   var show;
   var error;
