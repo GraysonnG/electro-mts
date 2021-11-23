@@ -9,6 +9,7 @@
 	import LoadingCircle from "./components/LoadingCircle.svelte";
 	import Header from "./components/Header.svelte";
 	import TitleBar from "./components/TitleBar.svelte";
+	import Tooltip from "./components/Tooltip.svelte";
 
 	window.launcher.init()
 </script>
@@ -35,6 +36,7 @@
 <GenericError />
 <ModInfo />
 <StsPrompt />
+<Tooltip />
 
 <style>
 	main {

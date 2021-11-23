@@ -1,8 +1,10 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  
+  import { applyTip } from "../state/tooltip";
+
   export let small = false;
   export let square = false;
+  export let tooltip = undefined;
   
   const dispatch = createEventDispatcher()
   const onClick = (event) => {
@@ -10,7 +12,7 @@
   }
 </script>
 
-<button class:small class:square on:click={onClick}>
+<button use:applyTip={tooltip} class:small class:square on:click={onClick}>
   <slot />
 </button>
 

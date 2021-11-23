@@ -30,7 +30,7 @@
   {#if $state.profiles}
     <CustomSelect items={Object.keys($state.profiles.lists)} bind:value={$state.profiles.defaultList} />
   {/if}
-  <Button square on:click={() => {
+  <Button square tooltip="New Profile" on:click={() => {
     modalOpen = true
   }}>
     <EvaIcon 
@@ -39,7 +39,7 @@
     />
   </Button>
 
-  <Button square on:click={() => {
+  <Button square tooltip="Save Profile" on:click={() => {
     window.launcher.saveProfiles($state.profiles)
   }}>
     <EvaIcon 
