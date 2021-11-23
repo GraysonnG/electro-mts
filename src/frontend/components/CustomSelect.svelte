@@ -38,7 +38,7 @@
 <style>
   .select {
     position: relative;
-    border: 2px solid var(--primary-700);
+    border: 2px solid var(--primary-500);
     border-radius: 0.25em;
     color: var(--grey-100);
     cursor: pointer;

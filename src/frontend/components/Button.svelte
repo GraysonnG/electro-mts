@@ -18,7 +18,7 @@
   button {
     position: relative;
     padding: 0.5em 2em;
-    border: 2px solid var(--primary-700);
+    border: 2px solid var(--primary-500);
     border-radius: 0.25em;
     background-color: transparent;
     transition: transform 250ms;

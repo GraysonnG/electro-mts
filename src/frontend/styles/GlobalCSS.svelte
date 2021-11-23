@@ -17,7 +17,7 @@
 
   :global(::-webkit-scrollbar-thumb) {
     width: 0.5em;
-    background: var(--primary-700);
+    background: var(--primary-500);
     border-radius: 1em;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
   }
