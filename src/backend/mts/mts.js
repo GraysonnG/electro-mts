@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const StreamZip = require('node-stream-zip')
 const child = require('child_process')
 const STEAM_WORKSHOP = "com.evacipated.cardcrawl.modthespire.steam.SteamWorkshop"
 
@@ -50,5 +51,11 @@ module.exports = {
     })
 
     return modData
+  },
+  async getMTSVersion(mtsPath) {
+    const zip = new StreamZip.async({ file: mtsPath })
+    const versionData = await zip.entryData("META-INF/version.prop")
+    const version = versionData.toString('utf8').split("=")[1].replace("\r\n", "")
+    return version
   }
 }

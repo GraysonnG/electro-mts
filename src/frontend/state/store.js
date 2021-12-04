@@ -6,6 +6,7 @@ export const state = writable({
   modList: [],
   stsDir: "",
   mtsDir: "",
+  mtsVersion: "",
   filter: "",
   launchEnabled: true,
   error: undefined,
