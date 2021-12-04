@@ -22,14 +22,14 @@ module.exports = {
           const output = []
   
           for (let i = 0; i < data.length; i+=5) {
-            try {
+            const path = data[i + 2]
+            const tags = data[i + 4]?.split(',')
+
+            if (path && tags) {
               output.push({
-                path: data[i + 2],
-                tags: data[i + 4].split(',')
+                path,
+                tags,
               })
-            } catch (e) {
-              // haha fuck me right
-              console.error(e)
             }
           }
   

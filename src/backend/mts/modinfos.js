@@ -7,7 +7,7 @@ const { getModDataFromSteam, getModDataManual } = require('./mts')
 const getModInfoFromMTSJSON = (mtsJSON, dir, fileName, tags = [], local = true) => {
   try {
     const data = JSON.parse(mtsJSON)
-    if (data.name === "ModTheSpire") throw "Ignoring MTS"
+    if (data.name === "ModTheSpire") return {}
 
     const id = data.modid
     let favorited = false
