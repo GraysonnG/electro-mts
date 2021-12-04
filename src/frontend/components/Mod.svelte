@@ -38,9 +38,9 @@
 
   let authorString = data.author.length > 50 ? `${data.author.substring(0, 50)}...` : data.author
   
-  $: missingDependencies = $state.modList.filter(mod => (
-    !mod.checked && data.deps && data.deps.includes(mod.id)
-  )).map (mod => mod.id)
+  $: missingDependencies = data.deps?.filter(dep => (
+    $state.modList.filter(mod => mod.id === dep).length === 0
+  )) || []
   $: error = data.checked && missingDependencies.length > 0
   $: selected = data.checked
   $: tagfound = data.tags.find(tag => tag.toLowerCase() === $state.filter.toLowerCase())

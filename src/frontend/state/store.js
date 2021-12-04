@@ -83,9 +83,11 @@ export const sortModlistBy = (propertyName, asc = true) => {
 export const toggleMod = (modId) => {
   modifyModList(list => {
     const mod = list.filter(m => m.id === modId)[0]
-    mod.checked = !mod.checked
+    if (mod) {
+      mod.checked = !mod.checked
 
-    if (mod.checked) enableDependencies(mod)
+      if (mod.checked) enableDependencies(mod)
+    }
   })
 }
 
