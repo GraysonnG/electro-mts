@@ -9,6 +9,7 @@
 
   export let data;
   let visible = true;
+  let warn = false;
 
   const dispatch = createEventDispatcher()
   const handleClick = (e) => {
@@ -38,10 +39,11 @@
 
   let authorString = data.author.length > 50 ? `${data.author.substring(0, 50)}...` : data.author
   
-  $: missingDependencies = data.deps?.filter(dep => (
-    $state.modList.filter(mod => mod.id === dep).length === 0
-  )) || []
-  $: error = data.checked && missingDependencies.length > 0
+  $: missingDependencies = data.deps?.filter(modid => {
+    const linkedDependency = $state.modList.find(mod => mod.id === modid)
+    return (linkedDependency && !linkedDependency.checked && data.checked) || linkedDependency === undefined
+  }) || [] 
+  $: error = missingDependencies.length > 0
   $: selected = data.checked
   $: tagfound = data.tags.find(tag => tag.toLowerCase() === $state.filter.toLowerCase())
 </script>
@@ -50,7 +52,8 @@
   use:cull 
   on:cull={handleCull} 
   class:selected 
-  class:error 
+  class:error
+  class:warn
   on:contextmenu={handleDetails}
   on:click={handleClick}>
   {#if visible}
@@ -80,7 +83,11 @@
     {/if}
     {#if error}
       <span class="missing">
-        Missing:
+        {#if data.checked}
+          Missing:
+        {:else}
+          Not Installed:
+        {/if}
         {#each missingDependencies as dep}
           <Button small on:click={() => {
             toggleMod(dep)
@@ -113,17 +120,22 @@
     min-height: 44px;
   }
 
-  div.error {
-    border: 2px solid var(--red-500) !important;
-  }
-
+  
   div:hover {
     border: 2px solid var(--grey-100);
     transform: scale(1.02);
   }
-
-  .selected {
-    border: 2px solid var(--primary-700) !important;
+  
+  div.selected {
+    border: 2px solid var(--primary-700);
+  }
+  
+  div.error {
+    border: 2px solid var(--red-500);
+  }
+  
+  div.warn {
+    border-right: 0.25em solid var(--yellow-500);
   }
 
   .small {
