@@ -1,10 +1,11 @@
 <script>
   import TextInput from "./TextInput.svelte";
   import EvaIcon from "./EvaIcon.svelte";
-  import { state } from "../state/store";
+  import { state, enableProfile } from "../state/store";
 
-  const handleRefresh = () => {
-
+  const handleRefresh = async () => {
+    await window.launcher.refreshMods()
+    $state.loading = true
   }
 </script>
 

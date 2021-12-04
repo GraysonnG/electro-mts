@@ -1,28 +1,23 @@
 const { ipcMain } = require('electron')
-const fs = require('fs')
 const { openDialog } = require('../dialog')
 const { launch } = require('../mts/launcher')
-const { getPathDefaults } = require('../mts/path')
 const { loadModInfos } = require('../mts/loader')
 const { saveProfiles } = require('../mts/profiles')
-const { saveConfigData, config, loadConfigData } = require('../config')
+const { saveConfigData, config } = require('../config')
 
 const { 
   CHANNELS: { 
     INIT,
     LAUNCH_MTS,
     OPEN_DIALOG,
-    UPDATE_STATE,
     FAVORITE,
     WINDOW_EVENT,
     SAVE_PROFILES,
-  }, 
-  ERROR: {
-    CANT_FIND_STS
-  } 
+    REFRESH_MODS,
+  },
 } = require('../../common/constants')
 const { handleWindowEvent } = require('./window')
-
+const { init, refresh } = require('../emts')
 
 const register = (mainWindow) => {
   ipcMain.on(LAUNCH_MTS, async (_e, data) => {
@@ -39,34 +34,12 @@ const register = (mainWindow) => {
     })
   })
 
-  ipcMain.on(INIT, async (_e, _data) => {
-    await loadConfigData()
-    const stsPaths = getPathDefaults()
+  ipcMain.on(INIT, (_e, _data) => {
+    init(mainWindow)
+  })
 
-    if (config.data.stsFolderLoc && config.data.stsFolderLoc !== "") {
-      stsPaths.push(config.data.stsFolderLoc)
-    }
-
-    try {
-      for (let path of stsPaths) {
-        if (fs.existsSync(path)) {
-          loadModInfos(path, mainWindow)
-          saveConfigData({
-            stsFolderLoc: path
-          })
-          return;
-        }
-      }
-
-      mainWindow.webContents.send(UPDATE_STATE, {
-        error: CANT_FIND_STS
-      })
-    } catch (e) {
-      console.error(e)
-      mainWindow.webContents.send(UPDATE_STATE, {
-        error: e
-      })
-    }
+  ipcMain.on(REFRESH_MODS, (_e, _data) => {
+    refresh(mainWindow)
   })
 
   ipcMain.on(FAVORITE, async (_e, data) => {

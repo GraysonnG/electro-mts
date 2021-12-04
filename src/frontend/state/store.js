@@ -10,6 +10,7 @@ export const state = writable({
   filter: "",
   launchEnabled: true,
   error: undefined,
+  warning: undefined,
   detailId: null,
   profiles: null
 })
@@ -24,6 +25,7 @@ window.ipcRenderer.on(CHANNELS.UPDATE_STATE, (payload) => {
   })
 
   sortModlistBy("favorited")
+  enableProfile()
 })
 
 // data out
@@ -103,6 +105,27 @@ export const enableModList = (...mods) => {
       })
       mod.checked = check
     })
+  })
+}
+
+export const enableProfile = (profileName) => {
+  state.update(s => {
+    if (s.profiles && s.profiles.lists) {
+      const profiles = s.profiles
+      const profileModnames = profiles.lists[profileName || s.profiles.defaultList]
+
+      s.modList.forEach(mod => {
+        let check = false
+        profileModnames.forEach(modname => {
+          if (mod.fileName === modname || mod.id === modname) {
+            check = true
+          }
+        })
+        mod.checked = check
+      })
+    }
+
+    return s
   })
 }
 

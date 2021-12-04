@@ -1,7 +1,7 @@
 <script>
   import Button from './Button.svelte';
   import CustomSelect from './CustomSelect.svelte';
-  import { state, enableModList, sendToLauncher } from '../state/store';
+  import { state, sendToLauncher, enableProfile } from '../state/store';
   import { onMount } from 'svelte';
   import EvaIcon from './EvaIcon.svelte';
   import AddProfile from '../modals/AddProfile.svelte';
@@ -13,10 +13,7 @@
     state.subscribe(s => {
       if (s.profiles && current !== s.profiles.defaultList) {
         current = s.profiles.defaultList
-        
-        const currentList = s.profiles.lists[current]
-
-        enableModList(...currentList)
+        enableProfile(current)
       }
     })
   })

@@ -59,6 +59,7 @@ const loadConfigData = () => {
     config.data = package
   }
 
+  return config
   // throw new Error(`Could not find EMTS Config at: ${eMtsConfigPath}`)  
 }
 

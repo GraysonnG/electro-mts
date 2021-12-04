@@ -7,6 +7,7 @@ module.exports = {
     FAVORITE: "favorite-mod",
     WINDOW_EVENT: "window-event",
     SAVE_PROFILES: "save-profiles",
+    REFRESH_MODS: "refresh-mods",
   },
   ERROR: {
     CANT_FIND_STS: "invalid-stspath",

@@ -6,7 +6,8 @@ const {
     OPEN_DIALOG,
     FAVORITE,
     WINDOW_EVENT,
-    SAVE_PROFILES
+    SAVE_PROFILES,
+    REFRESH_MODS,
   }
 } = require('../common/constants')
 
@@ -27,6 +28,9 @@ contextBridge.exposeInMainWorld('launcher', {
   },
   saveProfiles: (profiles) => {
     ipcRenderer.send(SAVE_PROFILES, profiles)
+  },
+  refreshMods: () => {
+    ipcRenderer.send(REFRESH_MODS, {})
   }
 })
 
