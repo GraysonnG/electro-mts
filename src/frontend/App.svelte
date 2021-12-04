@@ -77,6 +77,7 @@
 		background-color: var(--grey-300);
 		box-shadow: 0 0 15px var(--grey-900);
 		border-radius: 0.25em;
+		border: 2px solid var(--primary-500);
 		transform: translateX(-50%);
 		cursor: pointer;
 		z-index: 10002;
