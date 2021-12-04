@@ -65,5 +65,7 @@
     box-sizing: border-box;
     display: grid;
     gap: 0.5em;
+		padding: 1em;
+		color: var(--grey-100);
   }
 </style>
