@@ -9,10 +9,6 @@ export let tooltipData = writable({
 
 export const applyTip = (node, tooltip) => {
   if (tooltip) {
-    console.log(tooltip, node)
-    console.log(node.getBoundingClientRect())
-
-
     node.addEventListener('mouseenter', () => {
       const box = node.getBoundingClientRect()
       const cX = box.x + box.width / 2
