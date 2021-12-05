@@ -2,6 +2,7 @@
   import EvaIcon from "./EvaIcon.svelte";
   import { fly } from 'svelte/transition';
   import { clickOutside } from "../helpers/clickoutside";
+  import { applyShortcut } from "../helpers/keyshortcuts";
 
   export let items = []
   export let value = items[0]
@@ -21,7 +22,14 @@
 
 </script>
 
-<div class="select" class:open class:small on:click={toggle} use:clickOutside on:click_outside={() => { open = false }}>
+<div 
+  class="select" 
+  class:open 
+  class:small 
+  on:click={toggle} 
+  use:clickOutside
+  use:applyShortcut={{ code: 'Escape', callback: () => { open = false}}}
+  on:click_outside={() => { open = false }}>
   <div>
     <span>{value}</span>
     <EvaIcon name="arrow-down" size=14 />

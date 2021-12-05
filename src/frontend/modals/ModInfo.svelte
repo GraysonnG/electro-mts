@@ -4,6 +4,7 @@
   import { state, closeDetails } from "../state/store";
   import { clickOutside } from "../helpers/clickoutside";
   import Button from "../components/Button.svelte";
+  import { applyShortcut } from "../helpers/keyshortcuts";  
 
   let show = false
   let mod;
@@ -37,6 +38,7 @@
   >
     <div
       use:clickOutside
+      use:applyShortcut={{ code: 'Escape', callback: handleClickOutside }}
       on:click_outside={handleClickOutside}
       class="modal"
       in:fly={{ y: -200, duration: 200 }}

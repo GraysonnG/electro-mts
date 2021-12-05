@@ -4,6 +4,7 @@
   import { clickOutside } from "../helpers/clickoutside";
   import TextInput from "../components/TextInput.svelte";
   import Button from "../components/Button.svelte";
+  import { applyShortcut } from "../helpers/keyshortcuts";
 
   export let show = false
   let text = ""
@@ -34,13 +35,16 @@
 {#if show}
   <div
     use:clickOutside
+    use:applyShortcut={{code: 'Escape', callback: handleClickOutside}}
     on:click_outside={handleClickOutside}
     class="modal"
     in:fly={{ y: 30, duration: 200 }}
     out:fly={{ y: 30, duration: 200 }}>
     <h3>Add A Mod Profile</h3>
     <p>Name: <TextInput small bind:value={text} /></p>
-    <div><Button on:click={handleDone}>Done</Button></div>
+    <div>
+      <Button shortcut={{code: 'Enter', callback: handleDone}} on:click={handleDone}>Done</Button>
+    </div>
   </div>
 {/if}
 
