@@ -63,7 +63,8 @@
   div {
     color: var(--grey-100);
     box-sizing: border-box;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 0.5em;
 		padding: 1em;
 		color: var(--grey-100);

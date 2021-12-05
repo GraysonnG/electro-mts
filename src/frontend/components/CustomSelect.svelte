@@ -38,7 +38,8 @@
 <style>
   .select {
     position: relative;
-    border: 2px solid var(--primary-500);
+    background-color: var(--grey-300);
+    box-shadow: 0 0 0.5em var(--grey-900);
     border-radius: 0.25em;
     color: var(--grey-100);
     cursor: pointer;
@@ -55,11 +56,11 @@
     width: 0%;
     left: 50%;
     top: 50%;
-    background-color: var(--primary-700);
+    background-color: white;
     transform: translate(-50%, -50%);
     z-index: -1;
     transition: width 100ms, height 100ms;
-    opacity: 0.2;
+    opacity: 0.1;
   }
 
   .select:hover {

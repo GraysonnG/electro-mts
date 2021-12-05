@@ -12,7 +12,7 @@
 <header>
   <div>
     <EvaIcon
-      name="refresh-outline"
+      name="refresh"
       size=24
       on:click={handleRefresh}
     />
@@ -22,7 +22,7 @@
 
   <div>
     <EvaIcon
-      name="settings-outline"
+      name="settings"
       size=24
     />
   </div>

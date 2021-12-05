@@ -110,8 +110,7 @@
     display: flex;
     color: var(--grey-100);
     border-radius: 0.5em;
-    border: 2px solid transparent;
-    background-color: var(--grey-500);
+    background: var(--grey-500);
     padding: 0.5em 1em;
     gap: 1em;
     align-items: center;
@@ -122,16 +121,19 @@
 
   
   div:hover {
-    border: 2px solid var(--grey-100);
     transform: scale(1.02);
   }
   
   div.selected {
-    border: 2px solid var(--primary-700);
+    background: var(--grey-300);
   }
   
   div.error {
-    border: 2px solid var(--red-500);
+    background: linear-gradient(to right, var(--red-500), var(--grey-500) 50%);
+  }
+
+  div.selected.error {
+    background: linear-gradient(to right, var(--red-500), var(--grey-300) 50%);
   }
   
   div.warn {

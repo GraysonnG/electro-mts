@@ -20,9 +20,10 @@
   button {
     position: relative;
     padding: 0.5em 2em;
-    border: 2px solid var(--primary-500);
+    border: none;
     border-radius: 0.25em;
-    background-color: transparent;
+    background-color: var(--grey-300);
+    box-shadow: 0 0 0.5em var(--grey-900);
     transition: transform 250ms;
     color: var(--grey-100);
     overflow: hidden;
@@ -52,13 +53,13 @@
     width: 0%;
     left: 50%;
     top: 50%;
-    background-color: var(--primary-700);
+    background-color: white;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     aspect-ratio: 1;
     z-index: -1;
     transition: width 100ms;
-    opacity: 0.2;
+    opacity: 0.1;
   }
 
   button:active {
