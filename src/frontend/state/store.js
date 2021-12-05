@@ -15,6 +15,76 @@ export const state = writable({
   profiles: null
 })
 
+export const modlistHistory = (() => {
+  const { subscribe, set, update } = writable({
+    index: -1,
+    actions: []
+  })
+
+  return {
+    addAction: (modid, checked) => {
+      return update(history => {
+        const actions = [...history.actions]
+        const index = history.index + 1
+
+        actions.splice(index, 1, {
+          modid,
+          checked
+        })
+
+        return {
+          actions,
+          index,
+        }
+      })
+    },
+    redoAction: () => {
+      return update(history => {
+        if (history.index === history.actions - 1) return history
+
+        const action = history.actions[history.index + 1]
+
+        state.update(state => {
+          const mod = state.modList.find(mod => mod.id === action.modid)
+          mod.checked = action.checked
+
+          return state
+        })
+
+        return {
+          ...history,
+          index: history.index + 1
+        }
+      })
+    },
+    undoAction: () => {
+      return update(history => {
+        if (history.index < 0) return history
+
+        const action = history.actions[history.index]
+
+        state.update(state => {
+          const mod = state.modList.find(mod => mod.id === action.modid)
+          mod.checked = !action.checked
+
+          return state
+        })
+
+        return {
+          ...history,
+          index: history.index - 1
+        }
+      })
+    },
+    clear: () => {
+      return set({
+        index: -1,
+        actions: []
+      })
+    }
+  }
+})()
+
 // data in
 window.ipcRenderer.on(CHANNELS.UPDATE_STATE, (payload) => {
   state.update(oldState => {
@@ -83,11 +153,12 @@ export const sortModlistBy = (propertyName, asc = true) => {
   })
 }
 
-export const toggleMod = (modId) => {
+export const toggleMod = (modId, checked = null) => {
   modifyModList(list => {
     const mod = list.filter(m => m.id === modId)[0]
     if (mod) {
-      mod.checked = !mod.checked
+      mod.checked = checked !== null ? checked : !mod.checked
+      modlistHistory.addAction(mod.id, mod.checked)
 
       if (mod.checked) enableDependencies(mod)
     }
@@ -109,6 +180,7 @@ export const enableModList = (...mods) => {
 }
 
 export const enableProfile = (profileName) => {
+  modlistHistory.clear()
   state.update(s => {
     if (s.profiles && s.profiles.lists) {
       const profiles = s.profiles

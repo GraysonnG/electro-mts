@@ -1,7 +1,7 @@
 <script>
 	import Footer from "./components/Footer.svelte";
 	import List from "./components/List.svelte";
-	import { state } from "./state/store";
+	import { state, modlistHistory } from "./state/store";
 	import GlobalCSS from "./styles/GlobalCSS.svelte";
 	import LoadingCircle from "./components/LoadingCircle.svelte";
 	import Header from "./components/Header.svelte";
@@ -10,6 +10,7 @@
 	import Modals from "./modals/Modals.svelte";
 	import EvaIcon from "./components/EvaIcon.svelte";
 	import { fly } from "svelte/transition";
+	import { applyShortcut } from "./helpers/keyshortcuts";
 
 	let main;
 	let showUpButton = false
@@ -21,12 +22,24 @@
 		showUpButton = e.target.scrollTop !== 0
 	}
 
+	const undo = () => {
+		modlistHistory.undoAction()
+	}
+
+	const redo = () => {
+		modlistHistory.redoAction()
+	}
+
 </script>
 
 <GlobalCSS />
 <TitleBar />
 <Header />
-<main bind:this={main} on:scroll={onScroll}>
+<main
+	use:applyShortcut={{ code: "KeyZ", control: true, callback:undo }}
+	use:applyShortcut={{ code: "KeyY", control: true, callback:redo }}
+	bind:this={main}
+	on:scroll={onScroll}>
 	{#if !$state.loading}
 		<List />
 	{:else}
